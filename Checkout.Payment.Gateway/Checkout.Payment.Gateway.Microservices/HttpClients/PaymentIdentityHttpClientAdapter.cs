@@ -3,24 +3,23 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using IdentityModel.Client;
 using Checkout.Payment.Gateway.Seedwork.Interfaces;
-using Checkout.Payment.Gateway.Microservices.Configurations;
+using Checkout.Payment.Gateway.MicroServices.Configurations;
 using Checkout.Payment.Gateway.Seedwork.Models;
 
-namespace Checkout.Payment.Gateway.Microservices.HttpClients
+namespace Checkout.Payment.Gateway.MicroServices.HttpClients
 {
-    public class CheckoutPaymentIdentityHttpClientAdapter
+    public class PaymentIdentityHttpClientAdapter : IPaymentIdentityHttpClientAdapter
     {
         private readonly HttpClient _httpClient;
-        private readonly MicroServiceSettings _microservicesSettings;
         private readonly IAuthenticationSettings _authenticationSettings;
         private readonly IDomainNotificationBus _bus;
-        public CheckoutPaymentIdentityHttpClientAdapter(HttpClient client, MicroServiceSettings microseviceSettings, ApplicationManifest manifest, IAuthenticationSettings authenticationSettings, IDomainNotificationBus notificationBus)
+        public PaymentIdentityHttpClientAdapter(HttpClient client, MicroServiceSettings microSeviceSettings, ApplicationManifest manifest, IAuthenticationSettings authenticationSettings, IDomainNotificationBus notificationBus)
         {
-            _httpClient = client;
-            _microservicesSettings = microseviceSettings;
-            _authenticationSettings = authenticationSettings;
             _bus = notificationBus;
-            _httpClient.BaseAddress = new Uri(_microservicesSettings.IdentityBaseUrl);
+            _httpClient = client;
+            _authenticationSettings = authenticationSettings;
+
+            _httpClient.BaseAddress = new Uri(microSeviceSettings.IdentityBaseAddress);
             _httpClient.DefaultRequestHeaders.Add("User-Agent", $"{manifest.Name} {manifest.Version}");
         }
 
@@ -45,7 +44,7 @@ namespace Checkout.Payment.Gateway.Microservices.HttpClients
 
             if (tokenResponse.IsError)
             {
-                _bus.PublishBusinessViolation(disco.Error);
+                _bus.PublishBusinessViolation($"{tokenResponse.Error} {tokenResponse.ErrorDescription}");
                 return null;
             }
 

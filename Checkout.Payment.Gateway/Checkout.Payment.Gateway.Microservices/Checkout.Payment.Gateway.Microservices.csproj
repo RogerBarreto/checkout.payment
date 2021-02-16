@@ -7,6 +7,7 @@
     <PackageReference Include="IdentityModel" Version="4.4.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Checkout.Payment.Gateway.Domain\Checkout.Payment.Gateway.Domain.csproj" />
     <ProjectReference Include="..\Checkout.Payment.Gateway.Seedwork\Checkout.Payment.Gateway.Seedwork.csproj" />
   </ItemGroup>
 </Project>

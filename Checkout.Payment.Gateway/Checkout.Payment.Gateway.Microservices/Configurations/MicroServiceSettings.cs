@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Runtime.Serialization;
 
-namespace Checkout.Payment.Gateway.Microservices.Configurations
+namespace Checkout.Payment.Gateway.MicroServices.Configurations
 {
     public class MicroServiceSettings
     {
-        public string IdentityBaseUrl { get; set; }
+        public string IdentityBaseAddress { get; set; }
+        public string PaymentCommandBaseAddress { get; set; }
     }
 }
