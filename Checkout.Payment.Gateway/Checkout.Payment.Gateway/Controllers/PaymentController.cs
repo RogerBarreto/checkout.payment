@@ -26,9 +26,9 @@ namespace Checkout.Payment.Gateway.Controllers
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         public async Task<IActionResult> CreatePaymentAsync(CreatePaymentRequestModel requestModel)
         {
-            var responseModel = await _paymentService.CreatePaymentAsync(GetCurrentUserId().Value, requestModel);
+            var responseModel = await _paymentService.TryCreatePaymentAsync(GetCurrentUserId().Value, requestModel);
 
-            return Result(HttpStatusCode.Accepted, responseModel);
+            return Result(HttpStatusCode.Accepted, responseModel.Result);
         }
     }
 }

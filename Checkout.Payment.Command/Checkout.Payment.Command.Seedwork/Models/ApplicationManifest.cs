@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace Checkout.Payment.Gateway.Seedwork.Models
+namespace Checkout.Payment.Command.Seedwork.Models
 {
     public class ApplicationManifest
     {

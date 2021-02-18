@@ -1,8 +1,8 @@
-﻿using Checkout.Payment.Gateway.Application.Models.Enums;
+﻿using Checkout.Payment.Command.Application.Models.Enums;
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Checkout.Payment.Gateway.Application.Validations
+namespace Checkout.Payment.Command.Application.Validations
 {
     public class CurrencyTypeAttribute : ValidationAttribute
     {

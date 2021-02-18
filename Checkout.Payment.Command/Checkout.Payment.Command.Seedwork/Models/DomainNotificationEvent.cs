@@ -1,6 +1,6 @@
-﻿using Checkout.Payment.Gateway.Seedwork.Interfaces;
+﻿using Checkout.Payment.Command.Seedwork.Interfaces;
 
-namespace Checkout.Payment.Gateway.Seedwork.Models
+namespace Checkout.Payment.Command.Seedwork.Models
 {
     public class DomainNotificationEvent : IDomainNotificationEvent
     {

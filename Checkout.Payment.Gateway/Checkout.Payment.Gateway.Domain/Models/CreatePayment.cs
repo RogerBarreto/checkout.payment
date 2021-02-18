@@ -1,7 +1,7 @@
 ﻿using Checkout.Payment.Gateway.Domain.Models.Enums;
 using System;
 
-namespace Checkout.Payment.Gateway.Domain
+namespace Checkout.Payment.Gateway.Domain.Models
 {
     public class CreatePayment
     {

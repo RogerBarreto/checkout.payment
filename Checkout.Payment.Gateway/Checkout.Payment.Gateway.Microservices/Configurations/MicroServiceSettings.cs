@@ -1,6 +1,4 @@
-﻿using System.Runtime.Serialization;
-
-namespace Checkout.Payment.Gateway.MicroServices.Configurations
+﻿namespace Checkout.Payment.Gateway.MicroServices.Configurations
 {
     public class MicroServiceSettings
     {

@@ -1,8 +1,8 @@
-﻿using Checkout.Payment.Gateway.Application.Validations;
+﻿using Checkout.Payment.Command.Application.Validations;
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Checkout.Payment.Gateway.Application.Models
+namespace Checkout.Payment.Command.Application.Models
 {
     public class CreatePaymentRequestModel
     {

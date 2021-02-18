@@ -35,9 +35,14 @@ namespace Checkout.Payment.Gateway
             services.AddSingleton(Manifest);
             services.AddSingleton(microserviceSettings);
             services.AddSingleton<IAuthenticationSettings>(authenticationSettings);
-            services.AddScoped<IDomainNotificationBus, DomainNotificationBus>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
+            services.AddScoped<IDomainNotificationBus, DomainNotificationBus>();
             services.AddHttpClient<IPaymentIdentityHttpClientAdapter, PaymentIdentityHttpClientAdapter>();
+            services.AddHttpClient<IPaymentCommandHttpClientAdapter, PaymentCommandHttpClientAdapter>();
+
+            //Services
+            services.AddTransient<IPaymentService, PaymentService>();
+
 
             services.AddControllers();
             services.AddJwtAuthNZ(authenticationSettings);

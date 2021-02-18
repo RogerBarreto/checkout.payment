@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Checkout.Payment.Gateway.Application.Models.Enums
+namespace Checkout.Payment.Command.Application.Models.Enums
 {
     public enum CurrencyTypeModel
     {

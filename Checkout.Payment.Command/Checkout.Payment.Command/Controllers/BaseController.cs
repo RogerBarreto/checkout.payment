@@ -1,16 +1,16 @@
-﻿using Checkout.Payment.Gateway.Seedwork.Interfaces;
-using Checkout.Payment.Gateway.Seedwork.Models;
+﻿using Checkout.Payment.Command.Seedwork.Interfaces;
+using Checkout.Payment.Command.Seedwork.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
 using System.Net;
 
-namespace Checkout.Payment.Gateway.Controllers
+namespace Checkout.Payment.Command.Controllers
 {
     public abstract class BaseController : ControllerBase
     {
-        protected IDomainNotificationBus _notificationBus;
-        public BaseController(IDomainNotificationBus notificationBus)
+        protected IDomainNotification _notificationBus;
+        public BaseController(IDomainNotification notificationBus)
         {
             _notificationBus = notificationBus;
         }

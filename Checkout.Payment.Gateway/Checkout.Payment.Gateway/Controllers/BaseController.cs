@@ -19,7 +19,7 @@ namespace Checkout.Payment.Gateway.Controllers
         {
             if (_notificationBus.HasNotificationType(DomainNotificationType.Error))
             {
-                return CreateInternalError();
+                return CreateInternalServerError();
             }
 
             if (_notificationBus.HasNotificationType(DomainNotificationType.BusinessViolation))
@@ -34,11 +34,6 @@ namespace Checkout.Payment.Gateway.Controllers
                 case HttpStatusCode.NoContent: return NoContent();
                 default: return Ok(responseModel);
             }
-        }
-
-        private IActionResult CreateInternalError()
-        {
-            throw new NotImplementedException();
         }
 
         private IActionResult Created(object responseModel)
@@ -58,9 +53,9 @@ namespace Checkout.Payment.Gateway.Controllers
         }
         private IActionResult CreateInternalServerError()
         {
-            return BadRequest(new
+            return new ObjectResult(new
             {
-                Message = string.Join(" | ", _notificationBus.GetNotifications(DomainNotificationType.Error).Select(n => n.Message))
+                Message = "An internal error ocurred"
             });
         }
 

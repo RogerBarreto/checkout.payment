@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Checkout.Payment.Gateway.Application.Models
+namespace Checkout.Payment.Command.Application.Models
 {
     public class CreatePaymentResponseModel
     {

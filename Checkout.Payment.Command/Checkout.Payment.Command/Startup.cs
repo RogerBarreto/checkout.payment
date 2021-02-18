@@ -1,22 +1,25 @@
-using Checkout.Payment.Gateway.Configurations;
-using Checkout.Payment.Gateway.Extensions;
-using Checkout.Payment.Gateway.Seedwork.Interfaces;
+using Checkout.Payment.Command.Seedwork.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Swashbuckle.AspNetCore.Filters;
 using Microsoft.OpenApi.Models;
-using Checkout.Payment.Gateway.Application.Services;
-using Checkout.Payment.Gateway.Application.Interfaces;
-using Checkout.Payment.Gateway.Seedwork.Models;
-using Checkout.Payment.Gateway.MicroServices.Configurations;
-using Checkout.Payment.Gateway.MicroServices.HttpClients;
+using Checkout.Payment.Command.Application.Services;
+using Checkout.Payment.Command.Application.Interfaces;
+using Checkout.Payment.Command.Seedwork.Models;
+using MediatR;
+using System.Reflection;
+using Checkout.Payment.Command.Domain;
+using Checkout.Payment.Command.Seedwork.Extensions;
+using Checkout.Payment.Command.Domain.CommandHandlers;
+using Checkout.Payment.Command.Domain.Interfaces;
+using Checkout.Payment.Command.Data;
+using Checkout.Payment.Command.Data.Notifiers;
 
-namespace Checkout.Payment.Gateway
+namespace Checkout.Payment.Command
 {
-    public class Startup
+	public class Startup
     {
         public IConfiguration Configuration { get; }
         public ApplicationManifest Manifest { get; }
@@ -30,30 +33,21 @@ namespace Checkout.Payment.Gateway
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var authenticationSettings = Configuration.GetSection("AuthenticationSettings").Get<AuthenticationSettings>();
-            var microserviceSettings = Configuration.GetSection("MicroServiceSettings").Get<MicroServiceSettings>();
+            services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddSingleton(Manifest);
-            services.AddSingleton(microserviceSettings);
-            services.AddSingleton<IAuthenticationSettings>(authenticationSettings);
-            services.AddScoped<IDomainNotificationBus, DomainNotificationBus>();
-            services.AddScoped<IAuthenticationService, AuthenticationService>();
-            services.AddHttpClient<IPaymentIdentityHttpClientAdapter, PaymentIdentityHttpClientAdapter>();
+            services.AddScoped<IDomainNotification, DomainNotification>();
+            services.AddScoped<IPaymentService, PaymentService>();
+            services.AddScoped<IPaymentRepository, PaymentRepository>();
+            services.AddScoped<IPaymentNotifier, PaymentNotifier>();
+            services.AddScoped<IRequestHandler<CreatePaymentCommand, ITryResult<CreatePaymentCommandResponse>>, PaymentCommandHandler>();
 
+            services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = Configuration.GetConnectionString("PaymentCache");
+            });
             services.AddControllers();
-            services.AddJwtAuthNZ(authenticationSettings);
             services.AddSwaggerGen(options =>
             {
-                options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
-                {
-                    Description = "Standard Authorization header using the Bearer scheme. Example: \"bearer {token}\"",
-                    In = ParameterLocation.Header,
-                    Name = "Authorization",
-                    Type = SecuritySchemeType.Http,
-                    BearerFormat = "JWT",
-                    Scheme = "Bearer"
-                });
-
-                options.OperationFilter<SecurityRequirementsOperationFilter>();
                 options.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Title = Manifest.Name,
@@ -61,7 +55,6 @@ namespace Checkout.Payment.Gateway
                 });
             });
         }
-
        
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -79,12 +72,7 @@ namespace Checkout.Payment.Gateway
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", Manifest.Name);
             });
 
-
-            app.UseAuthentication();
-
             app.UseRouting();
-
-            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

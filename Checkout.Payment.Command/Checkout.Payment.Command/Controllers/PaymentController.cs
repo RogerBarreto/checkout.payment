@@ -1,21 +1,19 @@
-﻿using Checkout.Payment.Gateway.Application.Interfaces;
-using Checkout.Payment.Gateway.Application.Models;
-using Checkout.Payment.Gateway.Seedwork.Interfaces;
-using Microsoft.AspNetCore.Authorization;
+﻿using Checkout.Payment.Command.Application.Interfaces;
+using Checkout.Payment.Command.Application.Models;
+using Checkout.Payment.Command.Seedwork.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace Checkout.Payment.Gateway.Controllers
+namespace Checkout.Payment.Command.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    [Authorize]
     public class PaymentController : BaseController
     {
         private readonly IPaymentService _paymentService;
 
-        public PaymentController(IDomainNotificationBus notificationBus, IPaymentService paymentService) : base(notificationBus)
+        public PaymentController(IDomainNotification bus, IPaymentService paymentService) : base(bus)
         {
             _paymentService = paymentService;
         }
@@ -24,11 +22,11 @@ namespace Checkout.Payment.Gateway.Controllers
         [ProducesResponseType(typeof(CreatePaymentResponseModel), (int)HttpStatusCode.Accepted)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        public async Task<IActionResult> CreatePaymentAsync(CreatePaymentRequestModel requestModel)
+        public async Task<IActionResult> CreatePaymentAsync([FromHeader] int merchantId, CreatePaymentRequestModel requestModel)
         {
-            var responseModel = await _paymentService.CreatePaymentAsync(GetCurrentUserId().Value, requestModel);
+            var createPayment = await _paymentService.TryCreatePaymentAsync(merchantId, requestModel);
 
-            return Result(HttpStatusCode.Accepted, responseModel);
+            return Result(HttpStatusCode.Accepted, createPayment.Result);
         }
     }
 }

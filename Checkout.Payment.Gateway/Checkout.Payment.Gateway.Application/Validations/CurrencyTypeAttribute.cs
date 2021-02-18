@@ -15,7 +15,7 @@ namespace Checkout.Payment.Gateway.Application.Validations
         {
             if (ErrorMessage == null && ErrorMessageResourceName == null)
             {
-                ErrorMessage = "Invalid Currency [currency={0}]";
+                ErrorMessage = "Invalid Currency [currency={0}{1}]";
             }
 
             return base.FormatErrorMessage(name);

@@ -9,7 +9,7 @@ using System;
 using System.IO;
 using System.Reflection;
 
-namespace Checkout.Payment.Gateway
+namespace Checkout.Payment.Command
 {
     public class Program
     {
@@ -38,7 +38,7 @@ namespace Checkout.Payment.Gateway
             }
             catch (Exception ex)
             {
-                Log.Fatal(ex, "Host terminated unexpectedly");
+                Log.Fatal(ex, $"Host terminated unexpectedly [exMessage={ex.Message}]");
                 return 1;
             }
             finally

@@ -1,4 +1,4 @@
-﻿namespace Checkout.Payment.Gateway.Seedwork.Models
+﻿namespace Checkout.Payment.Command.Seedwork.Models
 {
     public enum DomainNotificationType
     {

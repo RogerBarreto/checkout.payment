@@ -1,27 +1,29 @@
-﻿using Checkout.Payment.Gateway.Application.Interfaces;
-using Checkout.Payment.Gateway.Application.Models;
-using Checkout.Payment.Gateway.Domain;
-using Checkout.Payment.Gateway.Domain.Models.Enums;
-using Checkout.Payment.Gateway.MicroServices.HttpClients;
+﻿using Checkout.Payment.Command.Application.Interfaces;
+using Checkout.Payment.Command.Application.Models;
+using Checkout.Payment.Command.Domain;
+using Checkout.Payment.Command.Domain.Models.Enums;
+using Checkout.Payment.Command.Seedwork.Extensions;
+using MediatR;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 
-namespace Checkout.Payment.Gateway.Application.Services
+namespace Checkout.Payment.Command.Application.Services
 {
     public class PaymentService : IPaymentService
     {
         private readonly ILogger<PaymentService> _logger;
-        private readonly IPaymentCommandHttpClientAdapter _paymentCommandClient;
-        public PaymentService(ILogger<PaymentService> logger, IPaymentCommandHttpClientAdapter paymentCommandClient)
+        private readonly IMediator _mediator;
+
+        public PaymentService(ILogger<PaymentService> logger, IMediator mediator)
         {
-            _paymentCommandClient = paymentCommandClient;
             _logger = logger;
+            _mediator = mediator;
         }
 
-        public async Task<CreatePaymentResponseModel> CreatePaymentAsync(int merchantId, CreatePaymentRequestModel paymentRequestModel)
+        public async Task<ITryResult<CreatePaymentResponseModel>> TryCreatePaymentAsync(int merchantId, CreatePaymentRequestModel paymentRequestModel)
         {
-            var createPayment = new CreatePayment()
+            var createPayment = new CreatePaymentCommand()
             {
                 MerchantId = merchantId,
                 Amount = paymentRequestModel.Amount,
@@ -31,9 +33,13 @@ namespace Checkout.Payment.Gateway.Application.Services
                 CurrencyType = Enum.Parse<CurrencyType>(paymentRequestModel.CurrencyType)
             };
 
-            var paymentId = await _paymentCommandClient.CreatePayment(createPayment);
+            var commandResponse = await _mediator.Send(createPayment);
+            if (!commandResponse.Success)
+            {
+                TryResult<CreatePaymentResponseModel>.CreateFailResult();
+            }
 
-            return new CreatePaymentResponseModel(paymentId);
+            return TryResult<CreatePaymentResponseModel>.CreateSuccessResult(new CreatePaymentResponseModel(commandResponse.Result.PaymentId));
         }
     }
 }
