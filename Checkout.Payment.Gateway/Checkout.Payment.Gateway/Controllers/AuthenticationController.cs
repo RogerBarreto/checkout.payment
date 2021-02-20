@@ -11,7 +11,8 @@ using System.Threading.Tasks;
 namespace Checkout.Payment.Gateway.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [ApiVersion("1.0")]
+    [Route("v{version:apiVersion}/[controller]")]
     public class AuthenticationController : BaseController
     {
         private readonly ILogger<AuthenticationController> _logger;

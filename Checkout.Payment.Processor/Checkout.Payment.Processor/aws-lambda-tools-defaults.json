@@ -12,5 +12,5 @@
   "function-runtime": "dotnetcore3.1",
   "function-memory-size": 256,
   "function-timeout": 30,
-  "function-handler": "Checkout.Payment.Processor.Lambda::Checkout.Payment.Processor.Lambda.Function::FunctionHandler"
+  "function-handler": "Checkout.Payment.Processor::Checkout.Payment.Processor.Function::FunctionHandler"
 }

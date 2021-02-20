@@ -3,16 +3,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Core;
-using Serilog.Events;
-using Serilog.Sinks.SystemConsole.Themes;
 using System;
 using System.IO;
-using System.Reflection;
 
-namespace Checkout.Payment.Processor
+namespace Checkout.Payment.AcquiringBankMock
 {
-    public class Program
-    {
+	public class Program
+	{
         public static IConfiguration Configuration { get; } = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json", false, true)
@@ -33,7 +30,9 @@ namespace Checkout.Payment.Processor
             try
             {
                 Log.Information("Starting...");
-                CreateHostBuilder(args).Build().Run();
+                var host = CreateHostBuilder(args).Build();
+                Log.Information("Running...");
+                host.Run();
                 return 0;
             }
             catch (Exception ex)
@@ -49,15 +48,13 @@ namespace Checkout.Payment.Processor
 
         public static IHostBuilder CreateHostBuilder(string[] args)
         {
-            var hostBuilder = Host.CreateDefaultBuilder(args);
-
             return Host.CreateDefaultBuilder(args)
                     .UseSerilog()
                     .ConfigureAppConfiguration((hostingContext, config) =>
                     {
                         config.AddJsonFile("manifest.json");
                     })
-                    .ConfigureWebHostDefaults(webBuilder => { 
+                    .ConfigureWebHostDefaults(webBuilder => {
                         webBuilder.UseStartup<Startup>();
                     });
         }

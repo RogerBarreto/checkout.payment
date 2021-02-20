@@ -1,4 +1,5 @@
-﻿using Checkout.Payment.Processor.Domain.Models.Enums;
+﻿using Checkout.Payment.Processor.Domain.Commands;
+using Checkout.Payment.Processor.Domain.Models.Enums;
 using System;
 
 namespace Checkout.Payment.Processor.Domain.Models.PaymentCommand

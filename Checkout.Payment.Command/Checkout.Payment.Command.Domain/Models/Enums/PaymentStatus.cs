@@ -9,6 +9,6 @@ namespace Checkout.Payment.Command.Domain.Models.Enums
         RejectedInsuficientFunds,
         RejectedBlocked,
         RejectedCustom,
-        Succeded
+        Succeeded
     }
 }

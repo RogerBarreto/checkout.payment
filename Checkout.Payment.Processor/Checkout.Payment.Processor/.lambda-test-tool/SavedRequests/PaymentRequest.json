@@ -1,0 +1,21 @@
+{
+  "Records": [
+    {
+      "messageId": "5fa14638-9f0d-51ef-4d30-af37dc73a984",
+      "receiptHandle": "yzrddgvhrvufdioliwpaxadxvzgmblvoyycbdruqermhmoyteaspumnxtpoedqxnmhcvdbyafkwjmcjhfgpalgfdtrljseqfygmwewtulhtwcymotcjrcythmbdtzmwdgzduzuiuycqqxflvuwtctxerzhveqjxfzkirldvrxvdsgkuedjqtsytrb",
+      "body": "{\"Type\": \"Notification\", \"MessageId\": \"8b432fc9-c6ea-4914-b479-27780df535cd\", \"TopicArn\": \"arn:aws:sns:us-east-1:000000000000:payment-process-topic\", \"Message\": \"{\\\"PaymentId\\\":\\\"849faf0a-81a6-49a8-84f5-e2b17ca34fd2\\\",\\\"CardNumber\\\":\\\"371449635398431\\\",\\\"CardCVV\\\":100,\\\"Amount\\\":25.0,\\\"CurrencyType\\\":\\\"USD\\\",\\\"PaymentStatus\\\":\\\"Processing\\\",\\\"PaymentStatusDetails\\\":null,\\\"BankPaymentId\\\":null}\",
+      "Attributes": {
+                "SenderId": "AIDAIT2UOQQY3AUEKVGXU",
+                "SentTimestamp": "1613798995362",
+                "ApproximateReceiveCount": "1",
+                "ApproximateFirstReceiveTimestamp": "1613799051733",
+                "MessageGroupId": ""
+            },
+      "messageAttributes": {},
+      "md5OfBody": "50c57fd71f48021e644f36d8f27750ca",
+      "eventSource": "aws:sqs",
+      "eventSourceARN": "arn:{partition}:sqs:{region}:123456789012:MyQueue",
+      "awsRegion": "{region}"
+    }
+  ]
+}

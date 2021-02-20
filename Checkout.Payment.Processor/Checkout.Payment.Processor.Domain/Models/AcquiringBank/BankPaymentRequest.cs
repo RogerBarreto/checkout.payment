@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Checkout.Payment.Processor.Domain.Commands;
+using System;
 
 namespace Checkout.Payment.Processor.Domain.Models.AcquiringBank
 {
-	public class BankPaymentRequest
+	public class BankPaymentRequest : IBankPaymentRequest
 	{
 		public BankPaymentRequest(SendBankPaymentCommand command)
 		{
@@ -14,7 +15,7 @@ namespace Checkout.Payment.Processor.Domain.Models.AcquiringBank
 			CurrencyType = command.CurrencyType.ToString();
 		}
 
-		public Guid PaymentId { get; private set; }
+		public Guid PaymentId { get; set; }
 		public string CardNumber { get; set; }
         public int CardCVV { get; set; }
         public DateTime ExpiryDate { get; set; }

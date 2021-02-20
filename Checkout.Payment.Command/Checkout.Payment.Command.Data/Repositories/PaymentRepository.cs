@@ -30,6 +30,7 @@ namespace Checkout.Payment.Command.Data
                 newPaymentData = JsonSerializer.Serialize(newPayment);
                 await _paymentCache.SetStringAsync($"Payment_{newPayment.PaymentId}", newPaymentData);
 
+                _logger.LogInformation($"Success to create payment in the Cache [paymentId={newPayment.PaymentId}]");
                 return TryResult<PaymentRequest>.CreateSuccessResult(newPayment);
 			}
             catch(Exception ex)
@@ -45,6 +46,7 @@ namespace Checkout.Payment.Command.Data
             {
                 await _paymentCache.RemoveAsync($"Payment_{paymentId}");
 
+                _logger.LogInformation($"Success to remove payment from Cache [paymentId={paymentId}]");
                 return TryResult.CreateSuccessResult();
             }
             catch (Exception ex)
@@ -79,6 +81,7 @@ namespace Checkout.Payment.Command.Data
                 var updatedPaymentRequestData = JsonSerializer.Serialize(paymentRequest);
                 await _paymentCache.SetStringAsync($"Payment_{command.PaymentId}", updatedPaymentRequestData);
 
+                _logger.LogInformation($"Success to update update payment in the Cache [paymentId={command.PaymentId}]");
                 return TryResult<bool>.CreateSuccessResult(true);
             }
             catch (Exception ex)

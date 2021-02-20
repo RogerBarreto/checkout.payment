@@ -16,6 +16,7 @@ using Checkout.Payment.Command.Domain.CommandHandlers;
 using Checkout.Payment.Command.Domain.Interfaces;
 using Checkout.Payment.Command.Data;
 using Checkout.Payment.Command.Data.Notifiers;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Checkout.Payment.Command
 {
@@ -46,7 +47,19 @@ namespace Checkout.Payment.Command
             {
                 options.Configuration = Configuration.GetConnectionString("PaymentCache");
             });
-            services.AddControllers();
+            services.AddApiVersioning(options =>
+            {
+                options.DefaultApiVersion = new ApiVersion(1, 0);
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.ReportApiVersions = true;
+            });
+            services.AddVersionedApiExplorer(options => {
+                options.GroupNameFormat = "'v'VVV";
+                options.DefaultApiVersion = new ApiVersion(1, 0);
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.SubstituteApiVersionInUrl = true;
+            });
+
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo
@@ -55,8 +68,13 @@ namespace Checkout.Payment.Command
                     Version = Manifest.Version
                 });
             });
+
+            services.AddRouting(options => options.LowercaseUrls = true);
+
+            services.AddControllers();
+
         }
-       
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -70,7 +88,7 @@ namespace Checkout.Payment.Command
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", Manifest.Name);
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
             });
 
             app.UseRouting();

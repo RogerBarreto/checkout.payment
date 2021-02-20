@@ -34,7 +34,7 @@ namespace Checkout.Payment.Gateway.MicroServices.HttpClients
                 CurrencyType = createRequest.CurrencyType.ToString(),
             };
 
-            var responseMessage = await TryPostJsonAsync($"{_httpClient.BaseAddress}v1/payment", requestPayload, new NameValueCollection { { "MerchantId", createRequest.MerchantId.ToString() } });
+            var responseMessage = await TryPostJsonAsync($"{_httpClient.BaseAddress}payment", requestPayload, new NameValueCollection { { "MerchantId", createRequest.MerchantId.ToString() } });
 
             if (!responseMessage.Success)
             {

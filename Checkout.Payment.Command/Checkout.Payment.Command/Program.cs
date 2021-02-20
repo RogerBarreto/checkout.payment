@@ -33,7 +33,9 @@ namespace Checkout.Payment.Command
             try
             {
                 Log.Information("Starting...");
-                CreateHostBuilder(args).Build().Run();
+                var host = CreateHostBuilder(args).Build();
+                Log.Information("Running...");
+                host.Run();
                 return 0;
             }
             catch (Exception ex)

@@ -6,5 +6,6 @@ namespace Checkout.Payment.Processor.Domain.Models.PaymentCommand
 {
 	public class UpdatePaymentResponse
 	{
+		Guid PaymentId { get; set; }
 	}
 }

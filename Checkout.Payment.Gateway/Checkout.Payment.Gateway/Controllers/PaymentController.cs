@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 namespace Checkout.Payment.Gateway.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [ApiVersion("1.0")]
+    [Route("v{version:apiVersion}/[controller]")]
     [Authorize]
     public class PaymentController : BaseController
     {

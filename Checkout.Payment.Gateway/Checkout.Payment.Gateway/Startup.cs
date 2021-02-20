@@ -13,10 +13,11 @@ using Checkout.Payment.Gateway.Application.Interfaces;
 using Checkout.Payment.Gateway.Seedwork.Models;
 using Checkout.Payment.Gateway.MicroServices.Configurations;
 using Checkout.Payment.Gateway.MicroServices.HttpClients;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Checkout.Payment.Gateway
 {
-    public class Startup
+	public class Startup
     {
         public IConfiguration Configuration { get; }
         public ApplicationManifest Manifest { get; }
@@ -41,10 +42,22 @@ namespace Checkout.Payment.Gateway
             services.AddHttpClient<IPaymentCommandHttpClientAdapter, PaymentCommandHttpClientAdapter>();
 
             //Services
-            services.AddTransient<IPaymentService, PaymentService>();
+            services.AddScoped<IPaymentService, PaymentService>();
 
 
-            services.AddControllers();
+            services.AddApiVersioning(options =>
+            {
+                options.DefaultApiVersion = new ApiVersion(1, 0);
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.ReportApiVersions = true;
+            });
+            services.AddVersionedApiExplorer(options => {
+                options.GroupNameFormat = "'v'VVV";
+                options.DefaultApiVersion = new ApiVersion(1, 0);
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.SubstituteApiVersionInUrl = true;
+            });
+
             services.AddJwtAuthNZ(authenticationSettings);
             services.AddSwaggerGen(options =>
             {
@@ -65,9 +78,13 @@ namespace Checkout.Payment.Gateway
                     Version = Manifest.Version
                 });
             });
+
+            services.AddRouting(options => options.LowercaseUrls = true);
+
+            services.AddControllers();
         }
 
-       
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -81,7 +98,7 @@ namespace Checkout.Payment.Gateway
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", Manifest.Name);
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
             });
 
 

@@ -10,7 +10,8 @@ using System.Threading.Tasks;
 namespace Checkout.Payment.Command.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [ApiVersion("1.0")]
+    [Route("v{version:apiVersion}/[controller]")]
     public class PaymentController : BaseController
     {
         private readonly IPaymentService _paymentService;

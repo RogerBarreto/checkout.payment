@@ -36,7 +36,7 @@ namespace Checkout.Payment.Processor.Domain.HttpClients
             if (payload != null)
             {
                 jsonPayload = JsonSerializer.Serialize(payload);
-                requestMessage.Content = new StringContent(jsonPayload, Encoding.UTF8, "applitation/json");
+                requestMessage.Content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
             };
 
             if (additionalHeaders != null)

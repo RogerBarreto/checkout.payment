@@ -6,7 +6,7 @@ namespace Checkout.Payment.Gateway.Seedwork.Models
 {
     public class DomainNotificationBus : IDomainNotificationBus
     {
-        public List<IDomainNotificationEvent> _notifications = new List<IDomainNotificationEvent>();
+        private List<IDomainNotificationEvent> _notifications = new List<IDomainNotificationEvent>();
 
         public IEnumerable<IDomainNotificationEvent> GetNotifications(DomainNotificationType type)
         {

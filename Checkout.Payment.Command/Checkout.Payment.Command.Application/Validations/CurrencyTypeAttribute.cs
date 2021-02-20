@@ -6,19 +6,19 @@ namespace Checkout.Payment.Command.Application.Validations
 {
     public class CurrencyTypeAttribute : ValidationAttribute
     {
-        public override bool IsValid(object value)
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            return Enum.TryParse(value.ToString(), out CurrencyTypeModel result);
-        }
-
-        public override string FormatErrorMessage(string name)
-        {
-            if (ErrorMessage == null && ErrorMessageResourceName == null)
+            if (value == null)
             {
-                ErrorMessage = "Invalid Currency [currency={0}]";
+                return new ValidationResult("Currency is required");
             }
 
-            return base.FormatErrorMessage(name);
+            if (Enum.TryParse(value.ToString(), out CurrencyTypeModel result))
+            {
+                return ValidationResult.Success;
+            }
+
+            return new ValidationResult($"Currency {value} is invalid");
         }
     }
 }

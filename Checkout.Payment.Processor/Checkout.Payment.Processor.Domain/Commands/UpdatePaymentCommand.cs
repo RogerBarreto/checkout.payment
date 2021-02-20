@@ -3,7 +3,7 @@ using Checkout.Payment.Processor.Seedwork.Extensions;
 using MediatR;
 using System;
 
-namespace Checkout.Payment.Processor.Domain
+namespace Checkout.Payment.Processor.Domain.Commands
 {
     public class UpdatePaymentCommand : IRequest<ITryResult>
     {

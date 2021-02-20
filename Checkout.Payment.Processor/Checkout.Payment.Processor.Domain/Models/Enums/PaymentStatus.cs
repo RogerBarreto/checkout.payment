@@ -6,10 +6,11 @@ namespace Checkout.Payment.Processor.Domain.Models.Enums
     public enum PaymentStatus
     {
         Processing,
+        RejectedIncorrect,
         RejectedInsuficientFunds,
-        RejectedBlocked,
+        RejectedCardBlocked,
         RejectedCustom,
-        Succeded,
-        Unexpected
-    }
+        Succeeded,
+        Unexpected,
+	}
 }

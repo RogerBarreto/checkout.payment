@@ -8,6 +8,18 @@
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="appsettings.json" />
+    <None Remove="manifest.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="manifest.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Amazon.Lambda.Core" Version="1.2.0" />
     <PackageReference Include="Amazon.Lambda.Serialization.SystemTextJson" Version="2.1.0" />
     <PackageReference Include="Amazon.Lambda.SQSEvents" Version="1.2.0" />
@@ -23,6 +35,8 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Checkout.Payment.Processor.Application\Checkout.Payment.Processor.Application.csproj" />
+    <ProjectReference Include="..\Checkout.Payment.Processor.Data\Checkout.Payment.Processor.Data.csproj" />
+    <ProjectReference Include="..\Checkout.Payment.Processor.Microservices\Checkout.Payment.Processor.MicroServices.csproj" />
     <ProjectReference Include="..\Checkout.Payment.Processor.Seedwork\Checkout.Payment.Processor.Seedwork.csproj" />
   </ItemGroup>
 </Project>

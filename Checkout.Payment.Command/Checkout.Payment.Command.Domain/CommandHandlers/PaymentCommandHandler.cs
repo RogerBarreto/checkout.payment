@@ -45,6 +45,7 @@ namespace Checkout.Payment.Command.Domain.CommandHandlers
                     _logger.LogError($"Failed to rollback payment [paymentId={createPayment.Result.PaymentId}, message={deletePaymentResult.Message}]");
                 }
 
+                _logger.LogInformation($"Rolledback payment [paymentId={createPayment.Result.PaymentId}]");
                 return TryResult<CreatePaymentCommandResponse>.CreateFailResult();
             }
 

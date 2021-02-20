@@ -5,7 +5,7 @@ namespace Checkout.Payment.Processor.Application.Models
 {
     public class PaymentMessageRequestModel
     {
-        public Guid PaymentId { get; internal set; }
+        public Guid PaymentId { get; set; }
         public string CardNumber { get; set; }
 
         public int CardCVV { get; set; }

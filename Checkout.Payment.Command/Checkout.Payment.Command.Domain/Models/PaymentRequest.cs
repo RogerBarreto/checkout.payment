@@ -9,6 +9,7 @@ namespace Checkout.Payment.Command.Domain.Models
         public string CardNumber { get; set; }
         public int CardCVV { get; set; }
         public decimal Amount { get; set; }
+        public DateTime ExpiryDate { get; set; }
         public CurrencyType CurrencyType { get; set; }
         public PaymentStatus PaymentStatus { get; set; }
         public string PaymentStatusDetails { get; set; }
@@ -22,6 +23,7 @@ namespace Checkout.Payment.Command.Domain.Models
             CardCVV = createPaymentRequest.CardCVV;
             Amount = createPaymentRequest.Amount;
             CurrencyType = createPaymentRequest.CurrencyType;
+            ExpiryDate = createPaymentRequest.ExpiryDate;
             PaymentStatus = PaymentStatus.Processing;
         }
         public void UpdatePayment(UpdatePaymentCommand command)

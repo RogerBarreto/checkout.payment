@@ -6,6 +6,6 @@ namespace Checkout.Payment.Processor.Domain.Interfaces
 {
     public interface IAcquiringBankHttpClientAdapter
     {
-        Task<ITryResult<BankPaymentResponse>> TrySendPayment(BankPaymentRequest request);
+        Task<ITryResult<IBankPaymentResponse>> TrySendPayment(IBankPaymentRequest request);
     }
 }

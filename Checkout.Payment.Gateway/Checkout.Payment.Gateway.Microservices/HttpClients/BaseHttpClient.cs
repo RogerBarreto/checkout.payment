@@ -32,7 +32,7 @@ namespace Checkout.Payment.Gateway.MicroServices.HttpClients
             if (payload != null)
             {
                 jsonPayload = JsonConvert.SerializeObject(payload);
-                requestMessage.Content = new StringContent(jsonPayload, Encoding.UTF8, "applitation/json");
+                requestMessage.Content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
             };
 
             if (additionalHeaders != null)
@@ -45,11 +45,13 @@ namespace Checkout.Payment.Gateway.MicroServices.HttpClients
 
             try
             {
-                return TryResult<HttpResponseMessage>.CreateSuccessResult(await _httpClient.SendAsync(requestMessage));
+                var successResult = await _httpClient.SendAsync(requestMessage);
+                _logger.LogDebug($"{method} JsonAsync Call Succeeded [requestUrl={url}, method={method}, responseStatus={successResult.StatusCode}, payload={jsonPayload}");
+                return TryResult<HttpResponseMessage>.CreateSuccessResult(successResult);
             }
             catch (Exception ex)
             {
-                _logger.LogError($"PostJsonAsync Call Failed [requestUrl={url}, method={method}, payload={jsonPayload}, exMessage={ex.Message}, exStrackTrace={ex.StackTrace}");
+                _logger.LogError($"{method} JsonAsync Call Failed [requestUrl={url}, method={method}, payload={jsonPayload}, exMessage={ex.Message}, exStrackTrace={ex.StackTrace}");
                 return TryResult<HttpResponseMessage>.CreateFailResult($"PostJsonAsync Call Failed - {ex.Message}");
             }
         }
