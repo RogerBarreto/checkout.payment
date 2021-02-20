@@ -1,13 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Checkout.Payment.Processor.Domain.Models.Enums;
+using System;
 
 namespace Checkout.Payment.Processor.Domain.Models.PaymentCommand
 {
 	public class UpdatePaymentRequest
 	{
-		public object PaymentId { get; set; }
-		public object PaymentStatus { get; set; }
-		public object PaymentStatusDetails { get; set; }
+		public Guid PaymentId { get; }
+		public PaymentStatus PaymentStatus { get; }
+		public string PaymentStatusDetails { get; }
+		public string BankPaymentId { get; }
+
+		public UpdatePaymentRequest(UpdatePaymentCommand command)
+		{
+			BankPaymentId = command.BankPaymentId;
+			PaymentId = command.PaymentId;
+			PaymentStatus = command.PaymentStatus;
+			PaymentStatusDetails = command.PaymentStatusDetails;
+		}
 	}
 }

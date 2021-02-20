@@ -1,9 +1,9 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Checkout.Payment.Command.Domain.Models.Enums
+namespace Checkout.Payment.Command.Application.Models.Enums
 {
     [JsonConverter(typeof(JsonStringEnumConverter))]
-    public enum PaymentStatus
+    public enum PaymentStatusModel
     {
         Processing,
         RejectedInsuficientFunds,

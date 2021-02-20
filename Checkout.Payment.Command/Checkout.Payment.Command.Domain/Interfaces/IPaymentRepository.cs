@@ -9,5 +9,6 @@ namespace Checkout.Payment.Command.Domain.Interfaces
     {
         Task<ITryResult<PaymentRequest>> TryCreatePayment(CreatePaymentCommand command);
 		Task<ITryResult> TryRemovePayment(Guid paymentId);
+		Task<ITryResult<bool>> TryUpdatePayment(UpdatePaymentCommand command);
 	}
 }

@@ -1,7 +1,13 @@
+using System;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 using Amazon.Lambda.Core;
 using Amazon.Lambda.SQSEvents;
+using Checkout.Payment.Processor.Application.Interfaces;
+using Checkout.Payment.Processor.Application.Models;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
@@ -14,31 +20,30 @@ namespace Checkout.Payment.Processor.Lambda
         public Function()
         {
             Startup.ConfigureServices();
-            var serviceProvider = Startup.GetServiceProvider();
         }
 
-
-        /// <summary>
-        /// This method is called for every Lambda invocation. This method takes in an SQS event object and can be used 
-        /// to respond to SQS messages.
-        /// </summary>
-        /// <param name="evnt"></param>
-        /// <param name="context"></param>
-        /// <returns></returns>
         public async Task FunctionHandler(SQSEvent evnt, ILambdaContext context)
         {
-            foreach(var message in evnt.Records)
+            var serviceProvider = Startup.GetServiceProvider();
+            var logger = serviceProvider.GetService<ILogger<Function>>();
+
+            foreach (var message in evnt.Records)
             {
-                await ProcessMessageAsync(message, context);
+                using (var scope = serviceProvider.CreateScope())
+                {
+                    var paymentService = scope.ServiceProvider.GetService<IPaymentService>();
+                    var paymentMessage = JsonSerializer.Deserialize<PaymentMessageRequestModel>(message.Body);
+
+                    var processResult = await paymentService.TryProcessPaymentAsync(paymentMessage);
+                    if (!processResult.Success)
+					{
+                        logger.LogError($"Unable conclude payment message process [paymentMessagePayload={message.Body}]");
+
+                        //If a payment process transation is unable to complete with rollback halt the application, and let the message go back to visible state in SNS for future processing.
+                        throw new ApplicationException("Payment process error - Safely aborting payment processing batch");
+					}
+                }
             }
-        }
-
-        private async Task ProcessMessageAsync(SQSEvent.SQSMessage message, ILambdaContext context)
-        {
-            context.Logger.LogLine($"Processed message {message.Body}");
-
-            // TODO: Do interesting work based on the new message
-            await Task.CompletedTask;
         }
     }
 }

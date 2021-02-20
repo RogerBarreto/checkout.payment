@@ -5,7 +5,7 @@
 		public LocalCredentials Credentials { get; set; }
 		public string Region { get; set; }
 		public bool IsEnabled { get; set; }
-		public string NotifyPaymentTopicArn { get; set; }
+		public string PaymentProcessTopicArn { get; set; }
 		public string ServiceURL { get; set; }
 		public bool UseHttp { get; set; }
 		public string ProxyHost { get; set; }

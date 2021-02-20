@@ -2,16 +2,15 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using Checkout.Payment.Processor.Seedwork.Interfaces;
-using Checkout.Payment.Processor.MicroServices.Configurations;
+using Checkout.Payment.Processor.Domain.Configurations;
 using Checkout.Payment.Processor.Seedwork.Models;
-using Newtonsoft.Json;
-using Checkout.Payment.Processor.Domain.Models;
 using Microsoft.Extensions.Logging;
 using Checkout.Payment.Processor.Seedwork.Extensions;
-using System.Collections.Specialized;
 using Checkout.Payment.Processor.Domain.Models.PaymentCommand;
+using System.Text.Json;
+using Checkout.Payment.Processor.Domain.Interfaces;
 
-namespace Checkout.Payment.Processor.MicroServices.HttpClients
+namespace Checkout.Payment.Processor.Domain.HttpClients
 {
     public class PaymentCommandHttpClientAdapter : BaseHttpClientAdapter, IPaymentCommandHttpClientAdapter
     {
@@ -42,7 +41,7 @@ namespace Checkout.Payment.Processor.MicroServices.HttpClients
             var responseContent = await responseMessage.Result.Content.ReadAsStringAsync();
             if (responseMessage.Result.IsSuccessStatusCode) 
             { 
-                var updateResponse = JsonConvert.DeserializeObject<UpdatePaymentResponse>(responseContent);
+                var updateResponse = JsonSerializer.Deserialize<UpdatePaymentResponse>(responseContent);
                 
                 _logger.LogInformation($"Update Payment Request Succeeded [PaymentId={updateRequest.PaymentId}, PaymentStatus={updateRequest.PaymentStatus}]");
                 return TryResult<UpdatePaymentResponse>.CreateSuccessResult(updateResponse);

@@ -53,5 +53,39 @@ namespace Checkout.Payment.Command.Data
                 return TryResult.CreateFailResult();
             }
         }
+
+        /// <summary>
+        /// Try to updates the cache with the given payload
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns>
+        /// Returns Success.true if cache is found and updated
+        /// Returns Success.false if the cache was not found (nothing was updated)</returns>
+        /// Returns Failure.false if unexpected error happened</returns>
+		public async Task<ITryResult<bool>> TryUpdatePayment(UpdatePaymentCommand command)
+		{
+            try
+            {
+                var cachedStringValue = await _paymentCache.GetStringAsync($"Payment_{command.PaymentId}");
+                if (cachedStringValue == null)
+				{
+                    _logger.LogWarning($"Unable to update payment information - Cache key not found [paymentId={command.PaymentId}, updateData={JsonSerializer.Serialize(command)}]");
+                    return TryResult<bool>.CreateSuccessResult(false);
+                }
+
+                var paymentRequest = JsonSerializer.Deserialize<PaymentRequest>(cachedStringValue);
+                paymentRequest.UpdatePayment(command);
+
+                var updatedPaymentRequestData = JsonSerializer.Serialize(paymentRequest);
+                await _paymentCache.SetStringAsync($"Payment_{command.PaymentId}", updatedPaymentRequestData);
+
+                return TryResult<bool>.CreateSuccessResult(true);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Failed to update a payment in the Cache [paymentId={command.PaymentId}, updateData={JsonSerializer.Serialize(command)}, message={ex.Message}]");
+                return TryResult<bool>.CreateFailResult();
+            }
+        }
 	}
 }

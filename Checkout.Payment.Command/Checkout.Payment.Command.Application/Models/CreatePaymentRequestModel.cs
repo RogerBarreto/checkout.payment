@@ -1,4 +1,5 @@
-﻿using Checkout.Payment.Command.Application.Validations;
+﻿using Checkout.Payment.Command.Application.Models.Enums;
+using Checkout.Payment.Command.Application.Validations;
 using System;
 using System.ComponentModel.DataAnnotations;
 
@@ -19,6 +20,6 @@ namespace Checkout.Payment.Command.Application.Models
         public decimal Amount { get; set; }
 
         [CurrencyType]
-        public string CurrencyType { get; set; }
+        public CurrencyTypeModel CurrencyType { get; set; }
     }
 }

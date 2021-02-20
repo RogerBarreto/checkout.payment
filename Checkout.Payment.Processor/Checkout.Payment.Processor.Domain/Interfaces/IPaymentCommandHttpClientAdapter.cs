@@ -1,10 +1,8 @@
-﻿using Checkout.Payment.Processor.Domain.Models;
-using Checkout.Payment.Processor.Domain.Models.PaymentCommand;
+﻿using Checkout.Payment.Processor.Domain.Models.PaymentCommand;
 using Checkout.Payment.Processor.Seedwork.Extensions;
-using System;
 using System.Threading.Tasks;
 
-namespace Checkout.Payment.Processor.MicroServices.HttpClients
+namespace Checkout.Payment.Processor.Domain.Interfaces
 {
     public interface IPaymentCommandHttpClientAdapter
     {

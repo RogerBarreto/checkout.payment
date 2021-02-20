@@ -2,7 +2,7 @@
 using Amazon.SimpleNotificationService.Model;
 using Checkout.Payment.Processor.Data.Configurations;
 using Checkout.Payment.Processor.Domain.Interfaces;
-using Checkout.Payment.Processor.Domain.Models;
+using Checkout.Payment.Processor.Domain.Models.Notification;
 using Checkout.Payment.Processor.Seedwork.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -33,20 +33,21 @@ namespace Checkout.Payment.Processor.Data.Notifiers
 			_logger = logger;
 		}
 
-		public async Task<ITryResult<string>> TryNotifyPaymentAsync(PaymentMessage request)
+		public async Task<ITryResult<string>> TryReprocessPaymentAsync(ReprocessPaymentMessage message)
 		{
 			string messagePayload = null;
 			try
 			{
-				messagePayload = JsonSerializer.Serialize(request);
-				var publishRequest = new PublishRequest(_settings.NotifyPaymentTopicArn, messagePayload);
+				messagePayload = JsonSerializer.Serialize(message);
+				var publishRequest = new PublishRequest(_settings.PaymentProcessTopicArn, messagePayload);
 				var publishResponse = await _client.PublishAsync(publishRequest);
 
+				_logger.LogInformation($"Successfully sent payment back to reprocess [topicArn={_settings.PaymentProcessTopicArn}, messagePayload={messagePayload}]");
 				return TryResult<string>.CreateSuccessResult(publishResponse.MessageId);
 			}
 			catch (Exception ex)
 			{
-				_logger.LogError($"Failed to publish message to topic [topicArn={_settings.NotifyPaymentTopicArn}, messagePayload={messagePayload}, exMessage={ex.Message}, exStack={ex.StackTrace}]");
+				_logger.LogError($"Failed to send payment back to reprocess [topicArn={_settings.PaymentProcessTopicArn}, messagePayload={messagePayload}, exMessage={ex.Message}, exStack={ex.StackTrace}]");
 				return TryResult<string>.CreateFailResult();
 			}
 		}

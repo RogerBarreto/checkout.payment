@@ -48,6 +48,12 @@
             Success = success;
             Message = message;
         }
+
+        public static TryResult CreateFromResult(ITryResult result)
+        {
+            return new TryResult(result.Success);
+        }
+
         public static TryResult CreateSuccessResult()
         {
             return new TryResult(true);

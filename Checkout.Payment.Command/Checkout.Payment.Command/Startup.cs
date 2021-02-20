@@ -40,6 +40,7 @@ namespace Checkout.Payment.Command
             services.AddScoped<IPaymentRepository, PaymentRepository>();
             services.AddScoped<IPaymentNotifier, PaymentNotifier>();
             services.AddScoped<IRequestHandler<CreatePaymentCommand, ITryResult<CreatePaymentCommandResponse>>, PaymentCommandHandler>();
+            services.AddScoped<IRequestHandler<UpdatePaymentCommand, ITryResult<UpdatePaymentCommandResponse>>, PaymentCommandHandler>();
 
             services.AddStackExchangeRedisCache(options =>
             {

@@ -1,13 +1,13 @@
 ﻿using Checkout.Payment.Processor.Seedwork.Extensions;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Specialized;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace Checkout.Payment.Processor.MicroServices.HttpClients
+namespace Checkout.Payment.Processor.Domain.HttpClients
 {
     public class BaseHttpClientAdapter
     {
@@ -35,7 +35,7 @@ namespace Checkout.Payment.Processor.MicroServices.HttpClients
             string jsonPayload = string.Empty;  
             if (payload != null)
             {
-                jsonPayload = JsonConvert.SerializeObject(payload);
+                jsonPayload = JsonSerializer.Serialize(payload);
                 requestMessage.Content = new StringContent(jsonPayload, Encoding.UTF8, "applitation/json");
             };
 
@@ -53,7 +53,7 @@ namespace Checkout.Payment.Processor.MicroServices.HttpClients
             }
             catch (Exception ex)
             {
-                _logger.LogError($"PostJsonAsync Call Failed [requestUrl={url}, method={method}, payload={jsonPayload}, exMessage={ex.Message}, exStrackTrace={ex.StackTrace}");
+                _logger.LogError($"{method}JsonAsync Call Failed [requestUrl={url}, method={method}, payload={jsonPayload}, exMessage={ex.Message}, exStrackTrace={ex.StackTrace}");
                 return TryResult<HttpResponseMessage>.CreateFailResult($"{method}JsonAsync Call Failed - {ex.Message}");
             }
         }

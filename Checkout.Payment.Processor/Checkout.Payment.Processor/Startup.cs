@@ -8,6 +8,10 @@ using System.IO;
 using System.Text;
 using Serilog;
 using Serilog.Core;
+using MediatR;
+using Checkout.Payment.Processor.Seedwork.Interfaces;
+using Checkout.Payment.Processor.Application.Interfaces;
+using Checkout.Payment.Processor.Application.Services;
 
 namespace Checkout.Payment.Processor
 {
@@ -23,7 +27,6 @@ namespace Checkout.Payment.Processor
 
             IConfigurationBuilder builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile($"manifest.json", optional: false)
                 .AddJsonFile($"appsettings.json", optional: true);
 
             _configuration = builder.Build();
@@ -38,12 +41,17 @@ namespace Checkout.Payment.Processor
             _serviceCollection = new ServiceCollection();
             var services = _serviceCollection;
 
+            services.AddMediatR(typeof(Startup));
+            services.AddSingleton(_configuration);
+
+            services.AddScoped<IDomainNotification, DomainNotification>();
+            services.AddScoped<IPaymentService, PaymentService>();
+
             services.AddLogging(b => 
             { 
                 b.ClearProviders();
                 b.AddSerilog(Logger);
             });
-
         }
 
         public static IServiceProvider GetServiceProvider()

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
@@ -11,15 +11,18 @@
     <PackageReference Include="Amazon.Lambda.Core" Version="1.2.0" />
     <PackageReference Include="Amazon.Lambda.Serialization.SystemTextJson" Version="2.1.0" />
     <PackageReference Include="Amazon.Lambda.SQSEvents" Version="1.2.0" />
+    <PackageReference Include="MediatR" Version="9.0.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.12" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="3.1.12" />
     <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="3.1.12" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.12" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.12" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.12" />
     <PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Checkout.Payment.Processor.Application\Checkout.Payment.Processor.Application.csproj" />
     <ProjectReference Include="..\Checkout.Payment.Processor.Seedwork\Checkout.Payment.Processor.Seedwork.csproj" />
   </ItemGroup>
 </Project>

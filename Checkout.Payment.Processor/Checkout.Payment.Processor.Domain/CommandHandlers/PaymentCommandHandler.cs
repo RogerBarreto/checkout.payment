@@ -1,52 +1,65 @@
-﻿using Checkout.Payment.Processor.Domain.Interfaces;
-using Checkout.Payment.Processor.Domain.Models;
+﻿using Checkout.Payment.Processor.Domain.Commands;
+using Checkout.Payment.Processor.Domain.Interfaces;
+using Checkout.Payment.Processor.Domain.Models.AcquiringBank;
+using Checkout.Payment.Processor.Domain.Models.Notification;
+using Checkout.Payment.Processor.Domain.Models.PaymentCommand;
 using Checkout.Payment.Processor.Seedwork.Extensions;
-using Checkout.Payment.Processor.Seedwork.Interfaces;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Checkout.Payment.Processor.Domain.CommandHandlers
 {
-    public class PaymentCommandHandler : IRequestHandler<CreatePaymentCommand, ITryResult<CreatePaymentCommandResponse>>
+    public class PaymentCommandHandler : 
+        IRequestHandler<SendBankPaymentCommand, ITryResult<SendBankPaymentCommandResponse>>,
+        IRequestHandler<UpdatePaymentCommand, ITryResult>,
+        IRequestHandler<ReprocessPaymentCommand, ITryResult>
     {
-        private readonly IPaymentRepository _paymentRepository;
+        private readonly IAcquiringBankHttpClientAdapter _paymentBankClient;
+        private readonly IPaymentCommandHttpClientAdapter _paymentCommandClient;
         private readonly IPaymentNotifier _paymentNotifier;
         private readonly ILogger<PaymentCommandHandler> _logger;
-		private readonly IDomainNotification _bus;
 
-		public PaymentCommandHandler(IPaymentRepository paymentRepository, IPaymentNotifier paymentNotifier, ILogger<PaymentCommandHandler> logger, IDomainNotification bus)
+		public PaymentCommandHandler(IPaymentCommandHttpClientAdapter paymentCommandClient, IAcquiringBankHttpClientAdapter paymentBankClient, IPaymentNotifier paymentNotifier, ILogger<PaymentCommandHandler> logger)
         {
-            _paymentRepository = paymentRepository;
-            _paymentNotifier = paymentNotifier;
+			_paymentCommandClient = paymentCommandClient;
+			_paymentBankClient = paymentBankClient;
+			_paymentNotifier = paymentNotifier;
             _logger = logger;
-			_bus = bus;
 		}
-        public async Task<ITryResult<CreatePaymentCommandResponse>> Handle(CreatePaymentCommand command, CancellationToken cancellationToken)
-        {
-            ITryResult<PaymentMessage> createPayment = await _paymentRepository.TryCreatePayment(command);
-            if (!createPayment.Success)
-            {
-                _bus.PublishError("Failed to create a payment");
-            }
 
-            ITryResult<string> paymentNotification = await _paymentNotifier.TryNotifyPaymentAsync(createPayment.Result);
-            if (!paymentNotification.Success)
-            {
-                _bus.PublishError("Failed to notify the payment");
-                _logger.LogError($"Failed to notify the payment [message={paymentNotification.Message}]");
+		public async Task<ITryResult<SendBankPaymentCommandResponse>> Handle(SendBankPaymentCommand command, CancellationToken cancellationToken)
+		{
+			var bankRequest = new BankPaymentRequest(command);
+			var bankRequestResult = await _paymentBankClient.TrySendPayment(bankRequest);
+			if (!bankRequestResult.Success)
+			{
+				return TryResult<SendBankPaymentCommandResponse>.CreateFailResult();
+			}
 
-                var deletePaymentResult = await _paymentRepository.TryRemovePayment(createPayment.Result.PaymentId);
-                if (!deletePaymentResult.Success)
-				{
-                    _logger.LogError($"Failed to rollback payment [paymentId={createPayment.Result.PaymentId}, message={deletePaymentResult.Message}]");
-                }
-            }
+			return TryResult<SendBankPaymentCommandResponse>.CreateSuccessResult(new SendBankPaymentCommandResponse(bankRequestResult.Result));
+		}
 
-            _logger.LogInformation($"Published message [paymentId={createPayment.Result.PaymentId}, publishedMessageId={paymentNotification.Result}]");
-            return TryResult<CreatePaymentCommandResponse>.CreateSuccessResult(new CreatePaymentCommandResponse(createPayment.Result.PaymentId));
-        }
-    }
+		public async Task<ITryResult> Handle(UpdatePaymentCommand command, CancellationToken cancellationToken)
+		{
+			var updateRequest = new UpdatePaymentRequest(command);
+			var updateResult = await _paymentCommandClient.TryUpdatePayment(updateRequest);
+
+			return TryResult.CreateFromResult(updateResult);
+		}
+
+		public async Task<ITryResult> Handle(ReprocessPaymentCommand command, CancellationToken cancellationToken)
+		{
+			var paymentMessage = new ReprocessPaymentMessage(command);
+			
+			ITryResult<string> reprocessResult = await _paymentNotifier.TryReprocessPaymentAsync(paymentMessage);
+			if (reprocessResult.Success)
+			{
+				_logger.LogInformation($"Payment message sent for Reprocess [paymentId={paymentMessage.PaymentId}, publishedMessageId={reprocessResult.Result}]");
+			}
+
+			return TryResult.CreateFromResult(reprocessResult);
+		}
+	}
 }

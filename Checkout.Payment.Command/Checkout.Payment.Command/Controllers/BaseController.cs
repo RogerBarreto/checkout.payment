@@ -15,7 +15,7 @@ namespace Checkout.Payment.Command.Controllers
             _notificationBus = notificationBus;
         }
 
-        protected IActionResult Result(HttpStatusCode successStatus, object responseModel)
+        protected IActionResult Result(HttpStatusCode successStatus, object responseModel = null)
         {
             if (_notificationBus.HasNotificationType(DomainNotificationType.Error))
             {

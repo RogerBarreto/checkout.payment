@@ -42,11 +42,14 @@ namespace Checkout.Payment.Command.Data.Notifiers
 				var publishRequest = new PublishRequest(_settings.NotifyPaymentTopicArn, messagePayload);
 				var publishResponse = await _client.PublishAsync(publishRequest);
 
+				_logger.LogInformation($"Success to publish message to topic [topicArn={_settings.NotifyPaymentTopicArn}, messagePayload={messagePayload}]");
+
 				return TryResult<string>.CreateSuccessResult(publishResponse.MessageId);
 			}
 			catch (Exception ex)
 			{
 				_logger.LogError($"Failed to publish message to topic [topicArn={_settings.NotifyPaymentTopicArn}, messagePayload={messagePayload}, exMessage={ex.Message}, exStack={ex.StackTrace}]");
+
 				return TryResult<string>.CreateFailResult();
 			}
 		}
