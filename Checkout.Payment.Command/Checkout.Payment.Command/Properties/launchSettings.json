@@ -10,14 +10,14 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "https://localhost:8002"
+      "applicationUrl": "http://localhost:8002"
     },
     "Docker": {
       "commandName": "Docker",
       "launchBrowser": true,
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger",
-      "publishAllPorts": true,
-      "useSSL": true
+      "publishAllPorts": true
+      //"useSSL": true
     }
   }
 }

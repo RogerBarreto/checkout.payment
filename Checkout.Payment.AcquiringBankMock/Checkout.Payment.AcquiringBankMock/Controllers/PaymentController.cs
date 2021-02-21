@@ -25,14 +25,7 @@ namespace Checkout.Payment.AcquiringBankMock.Controllers
 		[HttpPost]
 		public IActionResult SendPayment([FromBody] SendPaymentRequestModel request)
 		{
-			try
-			{
-				return Ok(_paymentService.ExecutePayment(request));
-			}
-			catch (BadRequestException badEx)
-			{
-				return BadRequest(new { errorMessage = badEx.Message });
-			}
+			return Ok(_paymentService.ExecutePayment(request));
 		}
 	}
 }

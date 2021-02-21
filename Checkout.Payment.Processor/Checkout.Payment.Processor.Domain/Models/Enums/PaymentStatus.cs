@@ -11,6 +11,6 @@ namespace Checkout.Payment.Processor.Domain.Models.Enums
         RejectedCardBlocked,
         RejectedCustom,
         Succeeded,
-        Unexpected,
+        Unexpected
 	}
 }

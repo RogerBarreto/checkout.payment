@@ -17,6 +17,7 @@ using Checkout.Payment.Processor.Data.Notifiers;
 using Checkout.Payment.Processor.Domain.Commands;
 using Checkout.Payment.Processor.MicroServices.Configurations;
 using System.Text.Json;
+using System.Net;
 
 namespace Checkout.Payment.Processor
 {
@@ -26,7 +27,7 @@ namespace Checkout.Payment.Processor
 		private static ApplicationManifest _manifest;
 		private static ServiceCollection _serviceCollection;
 		private static ServiceProvider _serviceProvider;
-		private static bool deserializeCasesensitiveApplied = false;
+		private static bool _deserializeCasesensitiveApplied = false;
 		public static void ConfigureServices()
 		{
 			DeserializeCaseInsensitiveConfig();
@@ -36,6 +37,7 @@ namespace Checkout.Payment.Processor
 				.AddJsonFile($"manifest.json", optional: false)
 				.AddJsonFile($"appsettings.json", optional: false);
 
+			
 			_configuration = builder.Build();
 			_manifest = _configuration.GetSection("ApplicationManifest").Get<ApplicationManifest>();
 			var microServiceSettings = _configuration.GetSection("MicroServiceSettings").Get<MicroServiceSettings>();
@@ -48,6 +50,12 @@ namespace Checkout.Payment.Processor
 
 			_serviceCollection = new ServiceCollection();
 			var services = _serviceCollection;
+
+			ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, errors) =>
+			{
+				// local dev, just approve all certs
+				return true;
+			};
 
 			services.AddMediatR(typeof(Startup));
 			services.AddSingleton(_configuration);
@@ -72,13 +80,13 @@ namespace Checkout.Payment.Processor
 
 		private static void DeserializeCaseInsensitiveConfig()
 		{
-			if (!deserializeCasesensitiveApplied)
+			if (!_deserializeCasesensitiveApplied)
 			{
 				((JsonSerializerOptions)typeof(JsonSerializerOptions)
 								.GetField("s_defaultOptions", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic).GetValue(null))
 							.PropertyNameCaseInsensitive = true;
 
-				deserializeCasesensitiveApplied = true;
+				_deserializeCasesensitiveApplied = true;
 			}
 		}
 

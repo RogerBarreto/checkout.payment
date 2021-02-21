@@ -83,7 +83,7 @@ namespace Checkout.Payment.Command
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>

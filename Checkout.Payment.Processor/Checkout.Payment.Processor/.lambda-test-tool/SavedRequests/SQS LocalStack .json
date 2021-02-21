@@ -1,0 +1,20 @@
+{
+  "Records": [
+    {
+      "messageId": "19dd0b57-b21e-4ac1-bd88-01bbb068cb78",
+      "receiptHandle": "MessageReceiptHandle",
+      "body": "{\"Type\": \"Notification\", \"MessageId\": \"32c38a0d-3679-436c-9752-f9d6b5853ff1\", \"TopicArn\": \"arn:aws:sns:us-east-1:000000000000:payment-process-topic\", \"Message\": \"{\\\"PaymentId\\\":\\\"3373b37e-8158-4b21-ad47-961cb8ffb85c\\\",\\\"CardNumber\\\":\\\"371449635398431\\\",\\\"CardCVV\\\":323,\\\"Amount\\\":1000.0,\\\"ExpiryDate\\\":\\\"2023-02-20T18:36:05.085Z\\\",\\\"CurrencyType\\\":\\\"EUR\\\",\\\"PaymentStatus\\\":\\\"Processing\\\",\\\"PaymentStatusDetails\\\":null,\\\"BankPaymentId\\\":null}\", \"Timestamp\": \"2021-02-20T19:20:20.740Z\", \"SignatureVersion\": \"1\", \"Signature\": \"EXAMPLEpH+..\", \"SigningCertURL\": \"https://sns.us-east-1.amazonaws.com/SimpleNotificationService-0000000000000000000000.pem\"}",
+      "attributes": {
+        "ApproximateReceiveCount": "1",
+        "SentTimestamp": "1523232000000",
+        "SenderId": "123456789012",
+        "ApproximateFirstReceiveTimestamp": "1523232000001"
+      },
+      "messageAttributes": {},
+      "md5OfBody": "7b270e59b47ff90a553787216d55d91d",
+      "eventSource": "aws:sqs",
+      "eventSourceARN": "arn:{partition}:sqs:{region}:123456789012:MyQueue",
+      "awsRegion": "{region}"
+    }
+  ]
+}

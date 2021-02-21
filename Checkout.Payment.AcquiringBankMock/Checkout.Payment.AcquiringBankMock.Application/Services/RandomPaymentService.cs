@@ -37,7 +37,7 @@ namespace Checkout.Payment.AcquiringBankMock.Application.Services
 			if (badRequest)
 			{
 				_logger.LogDebug($"Failed PaymentResult - Odd");
-				throw new BadRequestException("Something odd happened - Literaly");
+				throw new InternalErrorException("Something odd happened - Literaly");
 			}
 
 			var statusAndDetails = GetRandomStatus();

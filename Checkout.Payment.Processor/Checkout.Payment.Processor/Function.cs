@@ -31,7 +31,13 @@ namespace Checkout.Payment.Processor
                 using (var scope = serviceProvider.CreateScope())
                 {
                     var paymentService = scope.ServiceProvider.GetService<IPaymentService>();
-                    var paymentMessage = JsonSerializer.Deserialize<PaymentMessageRequestModel>(message.Body);
+                    var jsonDoc = JsonDocument.Parse(message.Body);
+
+                    logger.LogInformation(Environment.GetEnvironmentVariable("LOCALSTACK_HOSTNAME"));
+
+                    var snsInnerMessageBody = jsonDoc.RootElement.GetProperty("Message").GetString();
+                    var paymentMessage = JsonSerializer.Deserialize<PaymentMessageRequestModel>(snsInnerMessageBody);
+                    logger.LogInformation($"Processing Message [paymentId={paymentMessage.PaymentId}]");
 
                     var processResult = await paymentService.TryProcessPaymentAsync(paymentMessage);
                     if (!processResult.Success)
