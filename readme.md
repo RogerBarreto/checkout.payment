@@ -27,11 +27,11 @@ Checkout Payment
 * **Redis** - Redis container to simulate Redis Distributed Cache persistency across Command/Query.
 
 ## Architecture Logical View
-![Architecture Logical View](./documents/ArchitectureLogicView.svg)
+![Architecture Logical View](https://rogerbarreto.github.io/checkout.payment/Documents/ArchitectureLogicView.svg)
 
 ## Workflow Sequence Diagram
 
-![Workflow Sequence View](./documents/SequenceOverview.svg)
+![Workflow Sequence View](https://rogerbarreto.github.io/checkout.payment/Documents/SequenceOverview.svg)
 
 ----
 ## Getting Started
