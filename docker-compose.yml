@@ -2,21 +2,19 @@ version: '2.1'
 
 services:
   localstack:
-    container_name: "${LOCALSTACK_DOCKER_NAME-localstack_main}"
+    container_name: localstack
     image: localstack/localstack
     ports:
       - "34566-34599:4566-4599"
-      - "9000:9000"
+      - "8080:8080"
     environment:
       - SERVICES=sqs,sns,lambda
       - DEBUG=${DEBUG- }
       - DEFAULT_REGION=us-east-1
       - DATA_DIR=/tmp/localstack/data
-      - PORT_WEB_UI=9000
       - LAMBDA_EXECUTOR=docker
       - KINESIS_ERROR_PROBABILITY=${KINESIS_ERROR_PROBABILITY- }
       - DOCKER_HOST=unix:///var/run/docker.sock
-      - START_WEB=1
     volumes:
       - "${TMPDIR:-/tmp/localstack}:/tmp/localstack"
       - "/var/run/docker.sock:/var/run/docker.sock"
@@ -44,7 +42,54 @@ services:
         - "8081:8081"
     networks:
       - proxynet
-    
+  
+  checkout-payment-identity:
+    container_name: Checkout.Payment.Identity
+    hostname: Checkout.Payment.Identity
+    image: checkout-payment-identity
+    ports:
+        - "5000:80"
+    networks:
+      - proxynet
+      
+  checkout-payment-gateway:
+    container_name: Checkout.Payment.Gateway
+    hostname: Checkout.Payment.Gateway
+    image: checkout-payment-gateway
+    ports:
+        - "8001:80"
+    networks:
+      - proxynet
+      
+  checkout-payment-command:
+    container_name: Checkout.Payment.Command
+    hostname: Checkout.Payment.Command
+    image: checkout-payment-command
+    ports:
+        - "8002:80"
+    networks:
+      - proxynet
+      
+  checkout-payment-acquiringbankmock:
+    container_name: Checkout.Payment.AcquiringBankMock
+    hostname: Checkout.Payment.AcquiringBankMock
+    image: checkout-payment-acquiringbankmock
+    ports:
+        - "8003:80"
+    networks:
+      - proxynet
+      
+  checkout-payment-query:
+    container_name: Checkout.Payment.Query
+    hostname: Checkout.Payment.Query
+    image: checkout-payment-query
+    ports:
+        - "8004:80"
+    networks:
+      - proxynet
+      
+  
+      
 networks:
   proxynet:
     name: local

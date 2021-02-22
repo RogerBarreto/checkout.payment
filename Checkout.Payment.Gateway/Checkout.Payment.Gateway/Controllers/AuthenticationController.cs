@@ -36,6 +36,7 @@ namespace Checkout.Payment.Gateway.Controllers
 
         [Authorize]
         [HttpGet]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public ActionResult Get()
         {
             var claims = User.Claims.Select(c => new { c.Type, c.Value });

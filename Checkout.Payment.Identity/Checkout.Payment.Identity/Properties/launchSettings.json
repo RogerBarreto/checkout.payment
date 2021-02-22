@@ -2,7 +2,7 @@
   "profiles": {
     "Checkout.Payment.Identity": {
       "commandName": "Project",
-      "launchBrowser": true,
+      //"launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
@@ -10,7 +10,7 @@
     },
     "Docker": {
       "commandName": "Docker",
-      "launchBrowser": true,
+      //"launchBrowser": true,
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
       "publishAllPorts": true,
       "useSSL": true,

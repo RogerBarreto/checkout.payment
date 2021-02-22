@@ -29,7 +29,11 @@ namespace Checkout.Payment.Gateway.MicroServices.HttpClients
 
         public async Task<string> GetTokenAsync(string userName, string password)
         {
-            var disco = await _httpClient.GetDiscoveryDocumentAsync(_httpClient.BaseAddress.ToString());
+            var disco = await _httpClient.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
+            {
+                Address = _httpClient.BaseAddress.ToString(),
+                Policy = { RequireHttps = false }
+            });
             if (disco.IsError)
             {
                 _logger.LogError($"Failed to get contact Identity Server [reasonError={disco.Error}, identityBaseAddress={_httpClient.BaseAddress}]");

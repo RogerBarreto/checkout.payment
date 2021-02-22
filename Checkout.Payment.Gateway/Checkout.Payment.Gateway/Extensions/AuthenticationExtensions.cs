@@ -21,7 +21,7 @@ namespace Checkout.Payment.Gateway.Extensions
                 {
                     options.SaveToken = false;
                     options.Authority = authenticationSettings.Authority;
-
+                    options.RequireHttpsMetadata = false;
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuer = true,

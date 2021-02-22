@@ -18,7 +18,7 @@ namespace Checkout.Payment.Identity.Data.Repositories
                 {
                     SubjectId = i.ToString(),
                     UserName = $"merchant{i}",
-                    Password = $"merchant{i}",
+                    Password = $"merchant{i}password",
                     Email = $"merchant{1}@checkout.com"
                 });
             }

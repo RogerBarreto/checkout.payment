@@ -7,10 +7,10 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["Checkout.Payment.Gateway.csproj", ""]
-RUN dotnet restore "./Checkout.Payment.Gateway.csproj"
+COPY ["Checkout.Payment.Gateway/Checkout.Payment.Gateway.csproj", "Checkout.Payment.Gateway/"]
+RUN dotnet restore "Checkout.Payment.Gateway/Checkout.Payment.Gateway.csproj"
 COPY . .
-WORKDIR "/src/."
+WORKDIR "/src/Checkout.Payment.Gateway"
 RUN dotnet build "Checkout.Payment.Gateway.csproj" -c Release -o /app/build
 
 FROM build AS publish
