@@ -12,10 +12,12 @@ namespace Checkout.Payment.Gateway.Application.Services
     public class PaymentService : IPaymentService
     {
         private readonly IPaymentCommandHttpClientAdapter _paymentCommandClient;
-        public PaymentService(IPaymentCommandHttpClientAdapter paymentCommandClient)
+        private readonly IPaymentQueryHttpClientAdapter _paymentQueryClient;
+        public PaymentService(IPaymentCommandHttpClientAdapter paymentCommandClient, IPaymentQueryHttpClientAdapter paymentQueryClient)
         {
             _paymentCommandClient = paymentCommandClient;
-        }
+			_paymentQueryClient = paymentQueryClient;
+		}
 
         public async Task<ITryResult<CreatePaymentResponseModel>> TryCreatePaymentAsync(int merchantId, CreatePaymentRequestModel paymentRequestModel)
         {
@@ -36,5 +38,21 @@ namespace Checkout.Payment.Gateway.Application.Services
             }
             return TryResult<CreatePaymentResponseModel>.CreateSuccessResult(new CreatePaymentResponseModel(paymentResult.Result.PaymentId));
         }
-    }
+
+		public async Task<ITryResult<GetPaymentResponseModel>> TryGetPaymentAsync(int merchantId, Guid paymentId)
+		{
+            var getPayment = new GetPayment()
+            {
+                PaymentId = paymentId,
+                MerchantId = merchantId
+            };
+
+            var paymentResult = await _paymentQueryClient.TryGetPayment(getPayment);
+            if (!paymentResult.Success)
+            {
+                return TryResult<GetPaymentResponseModel>.CreateFailResult();
+            }
+            return TryResult<GetPaymentResponseModel>.CreateSuccessResult(new GetPaymentResponseModel(paymentResult.Result));
+        }
+	}
 }

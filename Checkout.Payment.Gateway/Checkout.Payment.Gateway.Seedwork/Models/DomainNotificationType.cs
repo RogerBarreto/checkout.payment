@@ -3,6 +3,7 @@
     public enum DomainNotificationType
     {
         Error,
-        BusinessViolation
-    }
+        BusinessViolation,
+		NotFound
+	}
 }

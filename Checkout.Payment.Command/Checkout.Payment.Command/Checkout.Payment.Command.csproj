@@ -30,7 +30,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Checkout.Payment.Command.Application\Checkout.Payment.Command.Application.csproj" />
     <ProjectReference Include="..\Checkout.Payment.Command.Data\Checkout.Payment.Command.Data.csproj" />
-    <ProjectReference Include="..\Checkout.Payment.Command.Seedwork\Checkout.Payment.Command.Seedwork.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -24,6 +24,12 @@ namespace Checkout.Payment.Gateway.MicroServices.HttpClients
             return await TrySendJsonAsync(url, HttpMethod.Post, payload, additionalHeaders);
 
         }
+        protected async Task<ITryResult<HttpResponseMessage>> TryGetAsync(string url, NameValueCollection additionalHeaders)
+        {
+            return await TrySendJsonAsync(url, HttpMethod.Get, null, additionalHeaders);
+
+        }
+
         protected async Task<ITryResult<HttpResponseMessage>> TrySendJsonAsync(string url, HttpMethod method, object payload, NameValueCollection additionalHeaders)
         {
             var requestMessage = new HttpRequestMessage(method, url);
@@ -46,12 +52,12 @@ namespace Checkout.Payment.Gateway.MicroServices.HttpClients
             try
             {
                 var successResult = await _httpClient.SendAsync(requestMessage);
-                _logger.LogDebug($"{method} JsonAsync Call Succeeded [requestUrl={url}, method={method}, responseStatus={successResult.StatusCode}, payload={jsonPayload}");
+                _logger.LogDebug($"{method} Async Call Succeeded [requestUrl={url}, method={method}, responseStatus={successResult.StatusCode}, payload={jsonPayload}");
                 return TryResult<HttpResponseMessage>.CreateSuccessResult(successResult);
             }
             catch (Exception ex)
             {
-                _logger.LogError($"{method} JsonAsync Call Failed [requestUrl={url}, method={method}, payload={jsonPayload}, exMessage={ex.Message}, exStrackTrace={ex.StackTrace}");
+                _logger.LogError($"{method} Async Call Failed [requestUrl={url}, method={method}, payload={jsonPayload}, exMessage={ex.Message}, exStrackTrace={ex.StackTrace}");
                 return TryResult<HttpResponseMessage>.CreateFailResult($"PostJsonAsync Call Failed - {ex.Message}");
             }
         }

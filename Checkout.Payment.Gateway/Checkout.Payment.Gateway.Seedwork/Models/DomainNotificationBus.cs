@@ -23,22 +23,31 @@ namespace Checkout.Payment.Gateway.Seedwork.Models
             _notifications.Add(@event);
         }
 
-        public void PublishBusinessViolation(string error)
+        public void PublishBusinessViolation(string message)
         {
             _notifications.Add(new DomainNotificationEvent
             {
                 Type = DomainNotificationType.BusinessViolation,
-                Message = error
+                Message = message
             });
         }
 
-        public void PublishError(string error)
+        public void PublishError(string message)
         {
             _notifications.Add(new DomainNotificationEvent
             {
                 Type = DomainNotificationType.Error,
-                Message = error
+                Message = message
             });
         }
-    }
+
+		public void PublishNotFound(string message)
+		{
+            _notifications.Add(new DomainNotificationEvent
+            {
+                Type = DomainNotificationType.NotFound,
+                Message = message
+            });
+        }
+	}
 }

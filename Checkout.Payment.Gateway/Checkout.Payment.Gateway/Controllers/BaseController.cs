@@ -1,7 +1,6 @@
 ﻿using Checkout.Payment.Gateway.Seedwork.Interfaces;
 using Checkout.Payment.Gateway.Seedwork.Models;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Linq;
 using System.Net;
 
@@ -25,6 +24,11 @@ namespace Checkout.Payment.Gateway.Controllers
             if (_notificationBus.HasNotificationType(DomainNotificationType.BusinessViolation))
             {
                 return CreateBadRequest();
+            }
+
+            if (_notificationBus.HasNotificationType(DomainNotificationType.NotFound))
+            {
+                return NotFound();
             }
 
             switch (successStatus)

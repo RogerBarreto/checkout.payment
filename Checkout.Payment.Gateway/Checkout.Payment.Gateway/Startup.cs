@@ -40,6 +40,7 @@ namespace Checkout.Payment.Gateway
             services.AddScoped<IDomainNotificationBus, DomainNotificationBus>();
             services.AddHttpClient<IPaymentIdentityHttpClientAdapter, PaymentIdentityHttpClientAdapter>();
             services.AddHttpClient<IPaymentCommandHttpClientAdapter, PaymentCommandHttpClientAdapter>();
+            services.AddHttpClient<IPaymentQueryHttpClientAdapter, PaymentQueryHttpClientAdapter>();
 
             //Services
             services.AddScoped<IPaymentService, PaymentService>();

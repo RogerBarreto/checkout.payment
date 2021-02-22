@@ -5,6 +5,7 @@ namespace Checkout.Payment.Command.Domain.Models
 {
     public class PaymentRequest
     {
+        public int MerchantId { get; set; }
         public Guid PaymentId { get; set; }
         public string CardNumber { get; set; }
         public int CardCVV { get; set; }
@@ -18,6 +19,7 @@ namespace Checkout.Payment.Command.Domain.Models
         public PaymentRequest() { }
         public PaymentRequest(Guid paymentId, CreatePaymentCommand createPaymentRequest)
         {
+            MerchantId = createPaymentRequest.MerchantId;
             PaymentId = paymentId;
             CardNumber = createPaymentRequest.CardNumber;
             CardCVV = createPaymentRequest.CardCVV;
