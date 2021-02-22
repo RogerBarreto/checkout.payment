@@ -27,7 +27,43 @@ namespace Checkout.Payment.Gateway.MicroServices.HttpClients
             _httpClient.DefaultRequestHeaders.Add("User-Agent", $"{manifest.Name} {manifest.Version}");
         }
 
-        public async Task<string> GetTokenAsync(string userName, string password)
+		public async Task<string> GetApiTokenAsync(string apiKey, string apiSecret)
+		{
+            var client = new HttpClient();
+
+            var disco = await _httpClient.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
+            {
+                Address = _httpClient.BaseAddress.ToString(),
+                Policy = { RequireHttps = false }
+            });
+            if (disco.IsError)
+            {
+                _logger.LogError($"Failed to get contact Identity Server [reasonError={disco.Error}, identityBaseAddress={_httpClient.BaseAddress}]");
+                _bus.PublishError(disco.Error);
+                return null;
+            }
+
+            var tokenResponse = await client.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
+            {
+                Address = disco.TokenEndpoint,
+                ClientId = apiKey,
+                ClientSecret = apiSecret,
+
+                Scope = "merchant-api"
+            });
+
+            if (tokenResponse.IsError)
+            {
+                _logger.LogInformation($"Failed to get token for api [apiKey={apiKey}]");
+                _bus.PublishBusinessViolation($"{tokenResponse.Error} {tokenResponse.ErrorDescription}");
+                return null;
+            }
+
+            return tokenResponse.AccessToken;
+        }
+    
+
+		public async Task<string> GetUserTokenAsync(string userName, string password)
         {
             var disco = await _httpClient.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
             {
@@ -41,7 +77,6 @@ namespace Checkout.Payment.Gateway.MicroServices.HttpClients
                 return null;
             }
 
-            // request token
             var tokenResponse = await _httpClient.RequestPasswordTokenAsync(new PasswordTokenRequest { 
                 Password = password, 
                 UserName = userName,

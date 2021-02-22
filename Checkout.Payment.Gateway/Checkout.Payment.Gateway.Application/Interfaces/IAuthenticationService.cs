@@ -4,6 +4,7 @@ namespace Checkout.Payment.Gateway.Application.Interfaces
 {
     public interface IAuthenticationService
     {
-        Task<string> LoginGetTokenAsync(UserTokenRequestModel loginRequestModel);
-    }
+        Task<string> UserGetTokenAsync(UserTokenRequestModel requestModel);
+		Task<string> ApiGetTokenAsync(ApiTokenRequestModel requestModel);
+	}
 }

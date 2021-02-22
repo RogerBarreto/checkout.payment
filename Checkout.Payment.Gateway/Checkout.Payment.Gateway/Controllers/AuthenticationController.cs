@@ -27,11 +27,29 @@ namespace Checkout.Payment.Gateway.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> GetTokenAsync([FromBody] UserTokenRequestModel requestModel)
+        [Route("user")]
+        [ProducesResponseType(typeof(UserTokenResponseModel), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        public async Task<IActionResult> GetUserTokenAsync([FromBody] UserTokenRequestModel requestModel)
         {
-            var token = await _authenticationService.LoginGetTokenAsync(requestModel);
+            var token = await _authenticationService.UserGetTokenAsync(requestModel);
 
             return Result(HttpStatusCode.OK, new UserTokenResponseModel(token));
+        }
+
+        [HttpPost]
+        [Route("api")]
+        [ProducesResponseType(typeof(ApiTokenResponseModel), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        public async Task<IActionResult> GetApiTokenAsync([FromBody] ApiTokenRequestModel requestModel)
+        {
+            var token = await _authenticationService.ApiGetTokenAsync(requestModel);
+
+            return Result(HttpStatusCode.OK, new ApiTokenResponseModel(token));
         }
 
         [Authorize]

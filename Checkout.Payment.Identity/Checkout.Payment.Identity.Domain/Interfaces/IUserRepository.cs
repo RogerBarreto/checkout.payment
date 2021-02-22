@@ -7,8 +7,8 @@ namespace Checkout.Payment.Identity.Domain.Interfaces
     {
         Task<bool> ValidateCredentialsAsync(string username, string password);
 
-        Task<CustomUser> FindBySubjectIdAsync(string subjectId);
+        Task<MerchantUser> FindBySubjectIdAsync(string subjectId);
 
-        Task<CustomUser> FindByUsernameAsync(string username);
+        Task<MerchantUser> FindByUsernameAsync(string username);
     }
 }

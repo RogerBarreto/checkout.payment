@@ -9,12 +9,12 @@ namespace Checkout.Payment.Identity.Data.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private readonly List<CustomUser> _users = new List<CustomUser>();
+        private readonly List<MerchantUser> _users = new List<MerchantUser>();
         public UserRepository()
         {
             for(var i = 1; i < 100; i++)
             {
-                _users.Add(new CustomUser
+                _users.Add(new MerchantUser
                 {
                     SubjectId = i.ToString(),
                     UserName = $"merchant{i}",
@@ -34,12 +34,12 @@ namespace Checkout.Payment.Identity.Data.Repositories
             return false;
         }
 
-        public async Task<CustomUser> FindBySubjectIdAsync(string subjectId)
+        public async Task<MerchantUser> FindBySubjectIdAsync(string subjectId)
         {
             return _users.FirstOrDefault(x => x.SubjectId == subjectId);
         }
 
-        public async Task<CustomUser> FindByUsernameAsync(string username)
+        public async Task<MerchantUser> FindByUsernameAsync(string username)
         {
             return _users.FirstOrDefault(x => x.UserName.Equals(username, StringComparison.OrdinalIgnoreCase));
         }
