@@ -46,6 +46,12 @@ namespace Checkout.Payment.Processor.Domain.CommandHandlers
 			var updateRequest = new UpdatePaymentRequest(command);
 			var updateResult = await _paymentCommandClient.TryUpdatePayment(updateRequest);
 
+			//Not found is an edge case, when messages stays in the queue and redis is cleaned, to be treated in ISSUE-14
+			if (!updateResult.Success && updateResult.Message == "notFound")
+			{
+				return TryResult.CreateSuccessResult();
+			}
+
 			return TryResult.CreateFromResult(updateResult);
 		}
 

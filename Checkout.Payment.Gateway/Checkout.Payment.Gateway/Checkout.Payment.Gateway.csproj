@@ -5,7 +5,7 @@
     <UserSecretsId>a9bc89d1-424f-47cc-9366-8d1fc28a69d5</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>.</DockerfileContext>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,7 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Checkout.Payment.Gateway.Application\Checkout.Payment.Gateway.Application.csproj" />
-    <ProjectReference Include="..\Checkout.Payment.Gateway.Microservices\Checkout.Payment.Gateway.MicroServices.csproj" />
+    <ProjectReference Include="..\Checkout.Payment.Gateway.MicroServices\Checkout.Payment.Gateway.MicroServices.csproj" />
     <ProjectReference Include="..\Checkout.Payment.Gateway.Seedwork\Checkout.Payment.Gateway.Seedwork.csproj" />
   </ItemGroup>
 

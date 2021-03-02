@@ -8,6 +8,7 @@ using Checkout.Payment.Processor.Domain.Models.PaymentCommand;
 using System.Text.Json;
 using Checkout.Payment.Processor.Domain.Interfaces;
 using Checkout.Payment.Processor.MicroServices.Configurations;
+using System.Net;
 
 namespace Checkout.Payment.Processor.Domain.HttpClients
 {
@@ -36,11 +37,19 @@ namespace Checkout.Payment.Processor.Domain.HttpClients
 
             var responseContent = await responseMessage.Result.Content.ReadAsStringAsync();
             if (responseMessage.Result.IsSuccessStatusCode) 
-            { 
-                var updateResponse = JsonSerializer.Deserialize<UpdatePaymentResponse>(responseContent);
-                
-                _logger.LogInformation($"Update Payment Request Succeeded [PaymentId={updateRequest.PaymentId}, PaymentStatus={updateRequest.PaymentStatus}]");
-                return TryResult<UpdatePaymentResponse>.CreateSuccessResult(updateResponse);
+            {
+                if (responseMessage.Result.StatusCode == HttpStatusCode.OK)
+                {
+                    var updateResponse = JsonSerializer.Deserialize<UpdatePaymentResponse>(responseContent);
+
+                    _logger.LogInformation($"Update Payment Request Succeeded [PaymentId={updateRequest.PaymentId}, PaymentStatus={updateRequest.PaymentStatus}]");
+                    return TryResult<UpdatePaymentResponse>.CreateSuccessResult(updateResponse);
+                }
+                else
+				{
+                    _logger.LogError($"Update Payment Failed - Not Found / No Content [PaymentId={updateRequest.PaymentId}, PaymentRequest={requestPayload}]");
+                    return TryResult<UpdatePaymentResponse>.CreateFailResult("notFound");
+                }
             }
 
             _logger.LogError($"Update Payment Failed [paymentId={updateRequest.PaymentId}, httpStatus={responseMessage.Result.StatusCode}, httpContent={responseContent}]");

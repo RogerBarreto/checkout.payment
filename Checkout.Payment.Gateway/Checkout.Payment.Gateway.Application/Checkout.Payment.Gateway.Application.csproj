@@ -13,7 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Checkout.Payment.Gateway.Domain\Checkout.Payment.Gateway.Domain.csproj" />
-    <ProjectReference Include="..\Checkout.Payment.Gateway.Microservices\Checkout.Payment.Gateway.MicroServices.csproj" />
+    <ProjectReference Include="..\Checkout.Payment.Gateway.MicroServices\Checkout.Payment.Gateway.MicroServices.csproj" />
   </ItemGroup>
 
 </Project>

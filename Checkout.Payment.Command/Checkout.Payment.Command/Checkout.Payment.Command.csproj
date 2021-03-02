@@ -5,8 +5,19 @@
     <UserSecretsId>a9bc89d1-424f-47cc-9366-8d1fc28a69d5</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>.</DockerfileContext>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Configurations\**" />
+    <Compile Remove="Middlewares\**" />
+    <Content Remove="Configurations\**" />
+    <Content Remove="Middlewares\**" />
+    <EmbeddedResource Remove="Configurations\**" />
+    <EmbeddedResource Remove="Middlewares\**" />
+    <None Remove="Configurations\**" />
+    <None Remove="Middlewares\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
@@ -20,11 +31,6 @@
     <PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.0.5" />
     <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="6.0.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Configurations\" />
-    <Folder Include="Middlewares\" />
   </ItemGroup>
 
   <ItemGroup>

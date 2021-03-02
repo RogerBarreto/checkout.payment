@@ -1,14 +1,14 @@
-cd Checkout.Payment.Identity\Checkout.Payment.Identity
-docker build -f Dockerfile -t checkout-payment-identity ..
-cd ..\..\Checkout.Payment.Command\Checkout.Payment.Command
-docker build -f Dockerfile -t checkout-payment-command ..
-cd ..\..\Checkout.Payment.Query\Checkout.Payment.Query
-docker build -f Dockerfile -t checkout-payment-query ..
-cd ..\..\Checkout.Payment.Gateway\Checkout.Payment.Gateway
-docker build -f Dockerfile -t checkout-payment-gateway ..
-cd ..\..\Checkout.Payment.AcquiringBankMock\Checkout.Payment.AcquiringBankMock
-docker build -f Dockerfile -t checkout-payment-acquiringbankmock ..
-cd ..\..
+cd Checkout.Payment.Identity
+docker build -f Dockerfile -t checkout-payment-identity .
+cd ..\Checkout.Payment.Command
+docker build -f Dockerfile -t checkout-payment-command .
+cd ..\Checkout.Payment.Query
+docker build -f Dockerfile -t checkout-payment-query .
+cd ..\Checkout.Payment.Gateway
+docker build -f Dockerfile -t checkout-payment-gateway .
+cd ..\Checkout.Payment.AcquiringBankMock
+docker build -f Dockerfile -t checkout-payment-acquiringbankmock .
+cd ..
 
 
 ::Individually Running Containers
