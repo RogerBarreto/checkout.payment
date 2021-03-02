@@ -16,7 +16,7 @@ namespace Checkout.Payment.AcquiringBankMock.Application.Models
 		[ExpiryYear]
 		public int ExpiryYear { get; set; }
 
-		[Range(1, double.MaxValue)]
+		[Range(0.01, double.MaxValue)]
 		public decimal Amount { get; set; }
 
 		[Currency]

@@ -19,9 +19,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkout.Payment.Command.Do
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{4956A8CE-1F3D-4E70-8E27-61D16C014660}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Checkout.Payment.Command.Data", "Checkout.Payment.Command.Data\Checkout.Payment.Command.Data.csproj", "{634C303D-BC2A-4B07-9BC7-C3264A7D6A98}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkout.Payment.Command.Data", "Checkout.Payment.Command.Data\Checkout.Payment.Command.Data.csproj", "{634C303D-BC2A-4B07-9BC7-C3264A7D6A98}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{9ECE40BB-3F44-4CFE-AE34-ECEA826C38F1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3576DD70-E6CD-4753-9A75-F17F155CD53F}"
+	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+		Dockerfile = Dockerfile
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

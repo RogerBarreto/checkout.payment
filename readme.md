@@ -106,10 +106,10 @@ Avaliable merchants: **100**
 
 ### **Tools / Swagger UIs**
 * Redis UI: http://localhost:8081
-* Payment Gateway http://localhost:8001
-* Payment Command http://localhost:8002
-* Payment Query http://localhost:8004
-* Acquiring Bank Mock http://localhost:8003
+* Payment Gateway http://localhost:8001/swagger
+* Payment Command http://localhost:8002/swagger
+* Payment Query http://localhost:8004/swagger
+* Acquiring Bank Mock http://localhost:8003/swagger
 
 ### **Useful commands**
 
