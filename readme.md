@@ -50,7 +50,9 @@ Checkout Payment
 ```
 	> setup-localstack.bat
 ```
-### 4. Access the Gateway  
+### 4. Kibana Logging - Access http://localhost:5601
+
+### 5. Access the Payment Gateway  
 -----
 ## Using the Payment Gateway:
 
@@ -153,6 +155,26 @@ aws --endpoint-url=http://localhost:34566 lambda create-event-source-mapping --e
 ```
 aws --endpoint-url=http://localhost:34566 logs describe-log-streams --log-group-name "/aws/lambda/checkout-payment-processor"
 aws --endpoint-url=http://localhost:34566 logs get-log-events --log-group-name "/aws/lambda/checkout-payment-processor" --log-stream-name "yyyy/MM/dd/[LATEST]12345678"
+```
+
+## Troubleshooting
+
+### ElasticSearch / Kibana does not start
+For windows users a pre-config might be needed in wsl to allow elasticsearch container to start.
+Execute the 2 steps below if your elasticsearch container is not starting
+
+Open command prompt to access access wsl bash
+```
+	C:\> wsl -d docker-desktop
+```
+
+Increase VM max map count to 262144: 
+```
+	# sysctl -w vm.max_map_count=262144
+```
+Restart the elasticsearch container
+```
+	docker-compose up elasticsearch
 ```
 
 

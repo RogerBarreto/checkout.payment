@@ -29,7 +29,6 @@ services:
       - "6379:6379"
     networks:
       - proxynet
-      
     
   redis-commander:
     container_name: redis-commander
@@ -43,6 +42,37 @@ services:
     networks:
       - proxynet
   
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.0
+    container_name: elasticsearch
+    environment:
+      - node.name=elasticsearch
+      - cluster.name=es-docker-cluster
+      - cluster.initial_master_nodes=elasticsearch
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - data01:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+    networks:
+      - proxynet
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.9.0
+    container_name: kibana
+    ports:
+      - 5601:5601
+    environment:
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+    networks:
+      - proxynet
+
   checkout-payment-identity:
     container_name: Checkout.Payment.Identity
     hostname: Checkout.Payment.Identity
@@ -87,8 +117,10 @@ services:
         - "8004:80"
     networks:
       - proxynet
-      
-  
+
+volumes:
+  data01:
+    driver: local
       
 networks:
   proxynet:
