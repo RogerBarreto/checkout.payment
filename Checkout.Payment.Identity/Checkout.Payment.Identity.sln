@@ -5,9 +5,15 @@ VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkout.Payment.Identity", "Checkout.Payment.Identity\Checkout.Payment.Identity.csproj", "{380733C2-9D38-4D5F-AEA2-B054AE6EB06C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Checkout.Payment.Identity.Data", "Checkout.Payment.Identity.Data\Checkout.Payment.Identity.Data.csproj", "{E62B72AF-D707-4C04-98D6-04875F49A213}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkout.Payment.Identity.Data", "Checkout.Payment.Identity.Data\Checkout.Payment.Identity.Data.csproj", "{E62B72AF-D707-4C04-98D6-04875F49A213}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Checkout.Payment.Identity.Domain", "Checkout.Payment.Identity.Domain\Checkout.Payment.Identity.Domain.csproj", "{56BD1BEF-A783-4207-9174-A878C270ECD1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkout.Payment.Identity.Domain", "Checkout.Payment.Identity.Domain\Checkout.Payment.Identity.Domain.csproj", "{56BD1BEF-A783-4207-9174-A878C270ECD1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8F3EB5D4-965D-4393-997A-5975DD6324B6}"
+	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+		Dockerfile = Dockerfile
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -5,12 +5,12 @@ namespace Checkout.Payment.Gateway.Application.Models.Enums
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum PaymentStatusModel
     {
-        Processing = 100,
-        RejectedIncorrect = 400,
-        RejectedInsuficientFunds = 401,
-        RejectedCardBlocked = 402,
-        RejectedCustom = 403,
-        Succeeded = 200,
-        Unexpected = 500
+        Processing = 1000,
+        RejectedIncorrect = 2000,
+        RejectedInsuficientFunds = 2001,
+        RejectedCardBlocked = 2002,
+        RejectedCustom = 2003,
+        Unexpected = 3000,
+        Succeeded = 4000
     }
 }

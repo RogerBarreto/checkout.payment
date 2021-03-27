@@ -8,6 +8,8 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
 COPY ["Checkout.Payment.Identity/Checkout.Payment.Identity.csproj", "Checkout.Payment.Identity/"]
+COPY ["Checkout.Payment.Identity.Data/Checkout.Payment.Identity.Data.csproj", "Checkout.Payment.Identity.Data/"]
+COPY ["Checkout.Payment.Identity.Domain/Checkout.Payment.Identity.Domain.csproj", "Checkout.Payment.Identity.Domain/"]
 RUN dotnet restore "Checkout.Payment.Identity/Checkout.Payment.Identity.csproj"
 COPY . .
 WORKDIR "/src/Checkout.Payment.Identity"

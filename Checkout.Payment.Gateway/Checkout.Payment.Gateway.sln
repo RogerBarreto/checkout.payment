@@ -7,19 +7,24 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{1D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{97BF6831-4A6F-402C-9EE2-7A2A3FF8F058}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkout.Payment.Gateway.Application", "..\Checkout.Payment.Gateway.Application\Checkout.Payment.Gateway.Application.csproj", "{9275F3E8-B9DE-45AC-AEAD-1971B33CC4ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkout.Payment.Gateway.Application", "Checkout.Payment.Gateway.Application\Checkout.Payment.Gateway.Application.csproj", "{9275F3E8-B9DE-45AC-AEAD-1971B33CC4ED}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkout.Payment.Gateway", "Checkout.Payment.Gateway.csproj", "{14BCE9A0-7FBF-44FD-9EB9-A2B5DFEB5FFF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkout.Payment.Gateway", "Checkout.Payment.Gateway\Checkout.Payment.Gateway.csproj", "{14BCE9A0-7FBF-44FD-9EB9-A2B5DFEB5FFF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkout.Payment.Gateway.MicroServices", "..\Checkout.Payment.Gateway.Microservices\Checkout.Payment.Gateway.MicroServices.csproj", "{6F6A7C23-3E07-4816-A198-F78763A0504B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkout.Payment.Gateway.MicroServices", "Checkout.Payment.Gateway.MicroServices\Checkout.Payment.Gateway.MicroServices.csproj", "{6F6A7C23-3E07-4816-A198-F78763A0504B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{1F57E4DF-768D-4588-89A6-D50EFF21E75B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkout.Payment.Gateway.Seedwork", "..\Checkout.Payment.Gateway.Seedwork\Checkout.Payment.Gateway.Seedwork.csproj", "{11C05DBB-1502-408D-8E94-CED2B38839EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkout.Payment.Gateway.Seedwork", "Checkout.Payment.Gateway.Seedwork\Checkout.Payment.Gateway.Seedwork.csproj", "{11C05DBB-1502-408D-8E94-CED2B38839EE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkout.Payment.Gateway.Domain", "..\Checkout.Payment.Gateway.Domain\Checkout.Payment.Gateway.Domain.csproj", "{08050A80-F5C0-4659-80CB-997D8C463BCD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkout.Payment.Gateway.Domain", "Checkout.Payment.Gateway.Domain\Checkout.Payment.Gateway.Domain.csproj", "{08050A80-F5C0-4659-80CB-997D8C463BCD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{4956A8CE-1F3D-4E70-8E27-61D16C014660}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{49022E17-341B-4D90-AC96-F8E7C804AACF}"
+	ProjectSection(SolutionItems) = preProject
+		Dockerfile = Dockerfile
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

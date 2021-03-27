@@ -42,28 +42,30 @@ namespace Checkout.Payment.Identity.Services
 		public async Task ValidateAsync(CustomTokenRequestValidationContext context)
 		{
             var client = context.Result.ValidatedRequest.Client;
-
-            var apiData = await _apiKeyRepository.FindByApiKeyAsync(client.ClientId);
-
-            if (apiData == null) 
+            if (context.Result.ValidatedRequest.GrantType != "password")
             {
-                context.Result.IsError = true;
-                context.Result.Error = "No claims matched in repository to add";
-                return;
+                var apiData = await _apiKeyRepository.FindByApiKeyAsync(client.ClientId);
+
+                if (apiData == null)
+                {
+                    context.Result.IsError = true;
+                    context.Result.Error = "No claims matched in repository to add";
+                    return;
+                }
+                // get list of custom claims we want to add
+                var claims = new List<Claim>
+                {
+                    new Claim("role", "payment.merchant"),
+                    new Claim("username", apiData.UserName),
+                    new Claim("email", apiData.Email),
+                    new Claim("user_id", apiData.SubjectId)
+                };
+
+                // add it
+                claims.ToList().ForEach(u => context.Result.ValidatedRequest.ClientClaims.Add(u));
+
+                context.Result.ValidatedRequest.Client.ClientClaimsPrefix = "";
             }
-            // get list of custom claims we want to add
-            var claims = new List<Claim>
-            {
-                new Claim("role", "payment.merchant"),
-                new Claim("username", apiData.UserName),
-                new Claim("email", apiData.Email),
-                new Claim("user_id", apiData.SubjectId)
-            };
-
-            // add it
-            claims.ToList().ForEach(u => context.Result.ValidatedRequest.ClientClaims.Add(u));
-
-            context.Result.ValidatedRequest.Client.ClientClaimsPrefix = "";
         }
 	}
 }
