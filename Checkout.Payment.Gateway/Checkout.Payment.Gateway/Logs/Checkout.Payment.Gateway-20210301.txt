@@ -1,0 +1,43 @@
+01-03-2021 23:10:35.009 [Information]  Starting...
+01-03-2021 23:10:36.239 [Information]  Running...
+01-03-2021 23:10:36.667 [Information] Microsoft.Hosting.Lifetime Now listening on: http://localhost:8001
+01-03-2021 23:10:36.674 [Information] Microsoft.Hosting.Lifetime Application started. Press Ctrl+C to shut down.
+01-03-2021 23:10:36.676 [Information] Microsoft.Hosting.Lifetime Hosting environment: Development
+01-03-2021 23:10:36.678 [Information] Microsoft.Hosting.Lifetime Content root path: D:\repo\checkout\Checkout.Payment.Gateway\Checkout.Payment.Gateway
+01-03-2021 23:10:56.734 [Error] Checkout.Payment.Gateway.MicroServices.HttpClients.PaymentIdentityHttpClientAdapter Failed to get contact Identity Server [reasonError=Error connecting to http://checkout.payment.identity/.well-known/openid-configuration. No such host is known.., identityBaseAddress=http://checkout.payment.identity/]
+01-03-2021 23:10:59.916 [Error] Checkout.Payment.Gateway.MicroServices.HttpClients.PaymentIdentityHttpClientAdapter Failed to get contact Identity Server [reasonError=Error connecting to http://checkout.payment.identity/.well-known/openid-configuration. No such host is known.., identityBaseAddress=http://checkout.payment.identity/]
+01-03-2021 23:11:41.391 [Information]  Starting...
+01-03-2021 23:11:41.953 [Information]  Running...
+01-03-2021 23:11:42.320 [Information] Microsoft.Hosting.Lifetime Now listening on: http://localhost:8001
+01-03-2021 23:11:42.326 [Information] Microsoft.Hosting.Lifetime Application started. Press Ctrl+C to shut down.
+01-03-2021 23:11:42.328 [Information] Microsoft.Hosting.Lifetime Hosting environment: Development
+01-03-2021 23:11:42.330 [Information] Microsoft.Hosting.Lifetime Content root path: D:\repo\checkout\Checkout.Payment.Gateway\Checkout.Payment.Gateway
+01-03-2021 23:13:25.134 [Information] Checkout.Payment.Gateway.MicroServices.HttpClients.PaymentIdentityHttpClientAdapter Failed to get token for user [UserName=merchant4]
+01-03-2021 23:27:50.237 [Information]  Starting...
+01-03-2021 23:27:50.868 [Information]  Running...
+01-03-2021 23:27:51.243 [Information] Microsoft.Hosting.Lifetime Now listening on: http://localhost:8001
+01-03-2021 23:27:51.249 [Information] Microsoft.Hosting.Lifetime Application started. Press Ctrl+C to shut down.
+01-03-2021 23:27:51.251 [Information] Microsoft.Hosting.Lifetime Hosting environment: Development
+01-03-2021 23:27:51.254 [Information] Microsoft.Hosting.Lifetime Content root path: D:\repo\checkout\Checkout.Payment.Gateway\Checkout.Payment.Gateway
+01-03-2021 23:27:55.496 [Error] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler Exception occurred while processing message.
+01-03-2021 23:27:55.507 [Error] Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware An unhandled exception has occurred while executing the request.
+01-03-2021 23:27:59.697 [Error] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler Exception occurred while processing message.
+01-03-2021 23:27:59.702 [Error] Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware An unhandled exception has occurred while executing the request.
+01-03-2021 23:28:38.847 [Error] Checkout.Payment.Gateway.MicroServices.HttpClients.PaymentIdentityHttpClientAdapter Failed to get contact Identity Server [reasonError=Error connecting to http://checkout.payment.identity/.well-known/openid-configuration. No such host is known.., identityBaseAddress=http://checkout.payment.identity/]
+01-03-2021 23:28:44.714 [Information]  Starting...
+01-03-2021 23:28:45.311 [Information]  Running...
+01-03-2021 23:28:45.656 [Information] Microsoft.Hosting.Lifetime Now listening on: http://localhost:8001
+01-03-2021 23:28:45.664 [Information] Microsoft.Hosting.Lifetime Application started. Press Ctrl+C to shut down.
+01-03-2021 23:28:45.667 [Information] Microsoft.Hosting.Lifetime Hosting environment: Development
+01-03-2021 23:28:45.671 [Information] Microsoft.Hosting.Lifetime Content root path: D:\repo\checkout\Checkout.Payment.Gateway\Checkout.Payment.Gateway
+01-03-2021 23:29:11.014 [Error] Checkout.Payment.Gateway.MicroServices.HttpClients.PaymentCommandHttpClientAdapter POST Async Call Failed [requestUrl=http://localhost:8002/v1/payment, method=POST, payload={"Amount":0.92,"CardNumber":"5061326072820495","CardCVV":333,"ExpiryDate":"2021-03-01T23:05:21.811Z","CurrencyType":"USD"}, exMessage=No connection could be made because the target machine actively refused it., exStrackTrace=   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean allowHttp2, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.GetHttpConnectionAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithRetryAsync(HttpRequestMessage request, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.FinishSendAsyncBuffered(Task`1 sendTask, HttpRequestMessage request, CancellationTokenSource cts, Boolean disposeCts)
+   at Checkout.Payment.Gateway.MicroServices.HttpClients.BaseHttpClientAdapter.TrySendJsonAsync(String url, HttpMethod method, Object payload, NameValueCollection additionalHeaders) in D:\repo\checkout\Checkout.Payment.Gateway\Checkout.Payment.Gateway.MicroServices\HttpClients\BaseHttpClient.cs:line 54
