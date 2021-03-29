@@ -1,12 +1,10 @@
-﻿using Checkout.Domain.Entities;
-using Checkout.Domain.Enums;
-using Checkout.Domain.ValueObjects;
-using MediatR;
-using System;
+﻿using MediatR;
+using Checkout.Gateway.Application.Payments.Errors;
+using OneOf;
 
 namespace Checkout.Gateway.Application.Payments.Commands
 {
-	public class CreatePaymentCommand : IRequest<CreatePaymentCommandResponse>
+	public class CreatePaymentCommand : IRequest<OneOf<CreatePaymentCommandResponse, PaymentError>>
 	{
         public int MerchantId { get; set; }
         public string CardNumber { get; set; }

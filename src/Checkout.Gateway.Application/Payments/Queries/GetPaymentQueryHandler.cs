@@ -3,10 +3,12 @@ using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 using Checkout.Domain.Entities;
+using Checkout.Gateway.Application.Payments.Errors;
+using OneOf;
 
 namespace Checkout.Gateway.Application.Payments.Queries
 {
-	public class GetPaymentQueryHandler : IRequestHandler<GetPaymentQuery, GetPaymentQueryResponse>
+	public class GetPaymentQueryHandler : IRequestHandler<GetPaymentQuery, OneOf<GetPaymentQueryResponse, PaymentNotFound, PaymentError>>
 	{
 		private readonly IPaymentQueryClient _paymentClient;
 
@@ -15,11 +17,13 @@ namespace Checkout.Gateway.Application.Payments.Queries
 			_paymentClient = paymentClient;
 		}
 
-		public async Task<GetPaymentQueryResponse> Handle(GetPaymentQuery request, CancellationToken cancellationToken)
+		public async Task<OneOf<GetPaymentQueryResponse, PaymentNotFound, PaymentError>> Handle(GetPaymentQuery request, CancellationToken cancellationToken)
 		{
-			Payment paymentDetails = await _paymentClient.GetPaymentAsync(request.PaymentId);
-
-			return GetPaymentQueryResponse.CreateFrom(paymentDetails);
+			return (await _paymentClient.GetPaymentAsync(request))
+				.Match<OneOf<GetPaymentQueryResponse, PaymentNotFound, PaymentError>>(
+					payment => payment, 
+					notFound => notFound,
+					error => error);
 		}
 	}
 }

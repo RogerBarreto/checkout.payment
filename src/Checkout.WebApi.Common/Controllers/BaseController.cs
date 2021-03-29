@@ -1,13 +1,27 @@
-﻿using Checkout.WebApi.Common.Models;
+﻿using System.Linq;
+using Checkout.WebApi.Common.Exceptions;
+using Checkout.WebApi.Common.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Checkout.WebApi.Common
+namespace Checkout.WebApi.Common.Controllers
 {
 	public class BaseController : ControllerBase
 	{
-		public BadRequestObjectResult BadRequest(string error)
+		protected int GetCurrentUserId()
 		{
-			return base.BadRequest(new ErrorModel(error));
+			var userIdClaim = GetCurrentUserClaim("user_id");
+
+			if (int.TryParse(userIdClaim, out int userId))
+			{
+				return userId;
+			}
+
+			throw new AuthUserNotFoundException();
+		}
+
+		protected string GetCurrentUserClaim(string claim)
+		{
+			return User.Claims.FirstOrDefault(c => c.Type == claim)?.Value;
 		}
 	}
 }

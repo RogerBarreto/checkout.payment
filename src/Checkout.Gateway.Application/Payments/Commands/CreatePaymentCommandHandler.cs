@@ -2,10 +2,12 @@
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
+using Checkout.Gateway.Application.Payments.Errors;
+using OneOf;
 
 namespace Checkout.Gateway.Application.Payments.Commands
 {
-	public class CreatePaymentCommandHandler : IRequestHandler<CreatePaymentCommand, CreatePaymentCommandResponse>
+	public class CreatePaymentCommandHandler : IRequestHandler<CreatePaymentCommand, OneOf<CreatePaymentCommandResponse, PaymentError>>
 	{
 		private readonly IPaymentCommandClient _paymentClient;
 
@@ -14,14 +16,14 @@ namespace Checkout.Gateway.Application.Payments.Commands
 			_paymentClient = paymentClient;
 		}
 
-		public async Task<CreatePaymentCommandResponse> Handle(CreatePaymentCommand command, CancellationToken cancellationToken)
+		public async Task<OneOf<CreatePaymentCommandResponse, PaymentError>> Handle(CreatePaymentCommand command, CancellationToken cancellationToken)
 		{
-			var paymentId = await _paymentClient.CreatePaymentAsync(command);
-
-			return new CreatePaymentCommandResponse
-			{
-				PaymentId = paymentId
-			};
+			return (await _paymentClient.CreatePaymentAsync(command)).Match<OneOf<CreatePaymentCommandResponse, PaymentError>>(
+				paymentId => new CreatePaymentCommandResponse
+				{
+					PaymentId = paymentId
+				}, 
+				error => error);
 		}
 	}
 }

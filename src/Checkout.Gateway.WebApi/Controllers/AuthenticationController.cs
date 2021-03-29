@@ -1,8 +1,12 @@
-﻿using Checkout.Gateway.Application.Authentication.Queries;
+﻿using System.Net;
+using Checkout.Gateway.Application.Authentication.Queries;
 using Checkout.WebApi.Common;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Checkout.Gateway.Application.Payments.Commands;
+using Checkout.WebApi.Common.Controllers;
+using Checkout.WebApi.Common.Models;
 
 namespace Checkout.Gateway.WebApi.Controllers
 {
@@ -19,22 +23,28 @@ namespace Checkout.Gateway.WebApi.Controllers
 			_mediator = mediator;
 		}
 
-		[Route("/user")]
-		[HttpGet]
+		[Route("user")]
+		[HttpPost]
+		[ProducesResponseType(typeof(GetTokenResponse), (int)HttpStatusCode.OK)]
+		[ProducesResponseType((int)HttpStatusCode.BadRequest)]
+		[ProducesResponseType((int)HttpStatusCode.InternalServerError)]
 		public async Task<IActionResult> GetMerchantUserToken(GetMerchantUserTokenQuery query)
 		{
 			return (await _mediator.Send(query)).Match<IActionResult>(
 				tokenResponse => Ok(tokenResponse),
-				error => BadRequest(error));
+				error => BadRequest(new ErrorModel(error.Message)));
 		}
 
-		[Route("/api")]
-		[HttpGet]
+		[Route("api")]
+		[HttpPost]
+		[ProducesResponseType(typeof(GetTokenResponse), (int)HttpStatusCode.OK)]
+		[ProducesResponseType((int)HttpStatusCode.BadRequest)]
+		[ProducesResponseType((int)HttpStatusCode.InternalServerError)]
 		public async Task<IActionResult> GetMerchantApiToken(GetMerchantApiTokenQuery query)
 		{
 			return (await _mediator.Send(query)).Match<IActionResult>(
 				tokenResponse => Ok(tokenResponse), 
-				error => BadRequest(error.Message));
+				error => BadRequest(new ErrorModel(error.Message)));
 		}
 	}
 }

@@ -1,16 +1,18 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
+using System.Reflection;
+using Checkout.Gateway.Application.Common.Interfaces;
+using Checkout.Gateway.Application.Extensions;
+using Checkout.Gateway.Infrastructure.Authentication.Queries;
+using Checkout.Gateway.Infrastructure.Extensions;
+using Checkout.Gateway.Infrastructure.Payments.Commands;
+using Checkout.Gateway.Infrastructure.Payments.Queries;
+using MediatR;
+using Microsoft.OpenApi.Models;
+using  Swashbuckle.AspNetCore.Swagger;
 namespace Checkout.Gateway.WebApi
 {
 	public class Startup
@@ -25,7 +27,24 @@ namespace Checkout.Gateway.WebApi
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
+			services.AddApplicationDependencies();
+			services.AddInfrastructureDependencies();
+			
+			services.AddHttpClient<IPaymentCommandClient, PaymentCommandClientAdapter>();
+			services.AddHttpClient<IPaymentQueryClient, PaymentQueryClientAdapter>();
+			services.AddHttpClient<IAuthenticationClient, AuthenticationClientAdapter>();
+			
 			services.AddControllers();
+			
+			services.AddSwaggerGen(o =>
+			{
+				o.SwaggerDoc("v1",
+					new OpenApiInfo
+					{
+						Title = GetApplicationName(),
+						Version = GetApplicationVersion()
+					});
+			});
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -35,6 +54,8 @@ namespace Checkout.Gateway.WebApi
 			{
 				app.UseDeveloperExceptionPage();
 			}
+			app.UseSwagger();
+			app.UseSwaggerUI(o => o.SwaggerEndpoint("v1/swagger.json", GetApplicationName()) );
 
 			app.UseHttpsRedirection();
 
@@ -46,6 +67,15 @@ namespace Checkout.Gateway.WebApi
 			{
 				endpoints.MapControllers();
 			});
+		}
+
+		private string GetApplicationName()
+		{
+			return Assembly.GetEntryAssembly()?.GetName().Name;
+		}
+		private string GetApplicationVersion()
+		{
+			return Assembly.GetEntryAssembly()?.GetName().Version?.ToString();
 		}
 	}
 }

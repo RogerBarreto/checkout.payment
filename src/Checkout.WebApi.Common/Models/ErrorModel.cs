@@ -4,7 +4,7 @@ namespace Checkout.WebApi.Common.Models
 {
 	public class ErrorModel
 	{
-		public List<string> Errors { get; }
+		public List<string> Errors { get; } = new List<string>();
 
 		public ErrorModel(string error)
 		{

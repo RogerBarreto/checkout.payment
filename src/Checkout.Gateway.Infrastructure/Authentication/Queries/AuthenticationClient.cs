@@ -13,7 +13,6 @@ namespace Checkout.Gateway.Infrastructure.Authentication.Queries
 	public class AuthenticationClientAdapter : IAuthenticationClient
 	{
 		private readonly HttpClient _httpClient;
-		private readonly IConfiguration _configuration;
 		private readonly ILogger<AuthenticationClientAdapter> _logger;
 		private readonly string _clientId;
 		private readonly string _clientSecret;
@@ -21,11 +20,10 @@ namespace Checkout.Gateway.Infrastructure.Authentication.Queries
 		public AuthenticationClientAdapter(HttpClient httpClient, IConfiguration configuration, ILogger<AuthenticationClientAdapter> logger)
 		{
 			_httpClient = httpClient;
-			_configuration = configuration;
 			_logger = logger;
-			_httpClient.BaseAddress = new Uri(_configuration.GetSection("HttpClientSettings:Identity:BaseAddress").Value);
-            _clientId = _configuration.GetSection("HttpClientSettings:Identity:ClientId").Value;
-            _clientSecret = _configuration.GetSection("HttpClientSettings:Identity:ClientSecret").Value;
+			_httpClient.BaseAddress = new Uri(configuration.GetSection("HttpClientSettings:Identity:BaseAddress").Value);
+            _clientId = configuration.GetSection("HttpClientSettings:Identity:ClientId").Value;
+            _clientSecret = configuration.GetSection("HttpClientSettings:Identity:ClientSecret").Value;
 		}
 
         public async Task<OneOf<string, AuthenticationError>> GetApiTokenAsync(string apiKey, string apiSecret)
