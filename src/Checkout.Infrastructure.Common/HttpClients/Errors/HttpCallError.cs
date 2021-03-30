@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Checkout.Infrastructure.Common.HttpClients.Errors
+﻿namespace Checkout.Infrastructure.Common.HttpClients.Errors
 {
 	public struct HttpCallError
 	{

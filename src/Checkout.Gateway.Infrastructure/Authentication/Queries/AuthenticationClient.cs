@@ -74,7 +74,7 @@ namespace Checkout.Gateway.Infrastructure.Authentication.Queries
 
             if (tokenResponse.IsError)
             {
-                _logger.LogWarning($"Failed to get token for user [UserName={userName}]");
+                _logger.LogWarning($"Failed to get token for user [ApiSecret={userName}]");
                 return new AuthenticationError($"Failed to get token for user");
             }
 

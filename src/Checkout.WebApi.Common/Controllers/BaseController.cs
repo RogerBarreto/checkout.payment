@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using Checkout.WebApi.Common.Exceptions;
-using Checkout.WebApi.Common.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Checkout.WebApi.Common.Controllers

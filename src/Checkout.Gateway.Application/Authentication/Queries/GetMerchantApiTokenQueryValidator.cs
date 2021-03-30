@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using MediatR;
 
 namespace Checkout.Gateway.Application.Authentication.Queries
 {
@@ -7,7 +6,7 @@ namespace Checkout.Gateway.Application.Authentication.Queries
 	{
 		public GetMerchantApiTokenQueryValidator()
 		{
-			RuleFor(o => o.UserName)
+			RuleFor(o => o.ApiSecret)
 				.NotNull()
 				.NotEmpty();
 

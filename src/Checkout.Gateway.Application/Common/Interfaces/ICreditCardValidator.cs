@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Checkout.Gateway.Application.Common.Interfaces
+﻿namespace Checkout.Gateway.Application.Common.Interfaces
 {
 	public interface ICreditCardValidator
 	{

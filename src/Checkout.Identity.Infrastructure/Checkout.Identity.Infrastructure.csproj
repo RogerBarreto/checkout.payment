@@ -2,7 +2,14 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
-        <RootNamespace>ClassLibrary1</RootNamespace>
     </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Checkout.Identity.Application\Checkout.Identity.Application.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="IdentityServer4" Version="4.1.1" />
+    </ItemGroup>
 
 </Project>

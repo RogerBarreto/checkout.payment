@@ -6,7 +6,7 @@ namespace Checkout.Gateway.Application.Authentication.Queries
 {
 	public class GetMerchantApiTokenQuery : IRequest<OneOf<GetTokenResponse, AuthenticationError>>
 	{
-		public string UserName { get; set; }
+		public string ApiSecret { get; set; }
 		public string ApiKey { get; set; }
 
 	}

@@ -3,12 +3,13 @@ using Checkout.Domain.Entities;
 
 namespace Checkout.Identity.Application.Authentication
 {
-    public interface IUserRepository
+    public interface IApiKeyRepository
     {
-        Task<bool> ValidateCredentialsAsync(string username, string password);
+        Task<bool> ValidateCredentialsAsync(string apiKey);
 
-        Task<MerchantUser> FindBySubjectIdAsync(string subjectId);
+        Task<MerchantApi> FindBySubjectIdAsync(string subjectId);
 
-        Task<MerchantUser> FindByUsernameAsync(string username);
+        Task<MerchantApi> FindByApiKeyAsync(string username);
+
     }
 }

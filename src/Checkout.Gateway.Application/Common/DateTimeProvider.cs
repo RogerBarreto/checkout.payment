@@ -1,7 +1,5 @@
 ﻿using Checkout.Domain.Common;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Checkout.Gateway.Application.Common
 {

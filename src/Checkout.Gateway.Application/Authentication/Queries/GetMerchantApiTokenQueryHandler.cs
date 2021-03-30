@@ -17,7 +17,7 @@ namespace Checkout.Gateway.Application.Authentication.Queries
 		}
 		public async Task<OneOf<GetTokenResponse, AuthenticationError>> Handle(GetMerchantApiTokenQuery query, CancellationToken cancellationToken)
 		{
-			var result = await _authenticationProvider.GetApiTokenAsync(query.UserName, query.ApiKey);
+			var result = await _authenticationProvider.GetApiTokenAsync(query.ApiKey, query.ApiSecret);
 
 			return result.Match<OneOf<GetTokenResponse, AuthenticationError>>(
 				token => new GetTokenResponse(token), 
