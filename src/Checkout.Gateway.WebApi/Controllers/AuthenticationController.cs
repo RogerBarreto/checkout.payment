@@ -1,10 +1,8 @@
 ﻿using System.Net;
 using Checkout.Gateway.Application.Authentication.Queries;
-using Checkout.WebApi.Common;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using Checkout.Gateway.Application.Payments.Commands;
 using Checkout.WebApi.Common.Controllers;
 using Checkout.WebApi.Common.Models;
 

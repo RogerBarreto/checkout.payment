@@ -10,9 +10,8 @@ using Checkout.Gateway.Infrastructure.Authentication.Queries;
 using Checkout.Gateway.Infrastructure.Extensions;
 using Checkout.Gateway.Infrastructure.Payments.Commands;
 using Checkout.Gateway.Infrastructure.Payments.Queries;
-using MediatR;
 using Microsoft.OpenApi.Models;
-using  Swashbuckle.AspNetCore.Swagger;
+
 namespace Checkout.Gateway.WebApi
 {
 	public class Startup
