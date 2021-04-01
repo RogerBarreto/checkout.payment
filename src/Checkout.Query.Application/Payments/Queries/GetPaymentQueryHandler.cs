@@ -1,26 +1,26 @@
-﻿using Checkout.Gateway.Application.Common.Interfaces;
+﻿using Checkout.Query.Application.Common.Interfaces;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 using Checkout.Domain.Errors;
 using OneOf;
 
-namespace Checkout.Gateway.Application.Payments.Queries
+namespace Checkout.Query.Application.Payments.Queries
 {
 	public class GetPaymentQueryHandler : IRequestHandler<GetPaymentQuery, OneOf<GetPaymentQueryResponse, PaymentNotFound, PaymentError>>
 	{
-		private readonly IPaymentQueryClient _paymentClient;
+		private readonly IPaymentRepository _repository;
 
-		public GetPaymentQueryHandler(IPaymentQueryClient paymentClient)
+		public GetPaymentQueryHandler(IPaymentRepository repository)
 		{
-			_paymentClient = paymentClient;
+			_repository = repository;
 		}
 
 		public async Task<OneOf<GetPaymentQueryResponse, PaymentNotFound, PaymentError>> Handle(GetPaymentQuery request, CancellationToken cancellationToken)
 		{
-			return (await _paymentClient.GetPaymentAsync(request))
+			return (await _repository.GetPaymentAsync(request))
 				.Match<OneOf<GetPaymentQueryResponse, PaymentNotFound, PaymentError>>(
-					payment => payment, 
+					payment => GetPaymentQueryResponse.CreateFrom(payment), 
 					notFound => notFound,
 					error => error);
 		}

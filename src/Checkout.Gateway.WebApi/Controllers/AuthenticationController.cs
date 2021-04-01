@@ -9,12 +9,11 @@ using Checkout.WebApi.Common.Models;
 namespace Checkout.Gateway.WebApi.Controllers
 {
 	[ApiController]
-	[Route("[controller]")]
+	[ApiVersion("1.0")]
+	[Route("v{version:apiVersion}/[controller]")]
 	public class AuthenticationController : BaseController
 	{
 		private readonly IMediator _mediator;
-
-		
 
 		public AuthenticationController(IMediator mediator)
 		{

@@ -6,11 +6,16 @@ using System.Threading.Tasks;
 using Checkout.Gateway.Application.Payments.Commands;
 using Checkout.Gateway.Application.Payments.Queries;
 using Checkout.WebApi.Common.Controllers;
+using Checkout.WebApi.Common.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Checkout.Gateway.WebApi.Controllers
 {
+
+	[Authorize]
 	[ApiController]
-	[Route("[controller]")]
+	[ApiVersion("1.0")]
+	[Route("v{version:apiVersion}/[controller]")]
 	public class PaymentController : BaseController
 	{
 		private readonly IMediator _mediator;
@@ -26,9 +31,10 @@ namespace Checkout.Gateway.WebApi.Controllers
 		[ProducesResponseType((int)HttpStatusCode.InternalServerError)]
 		public async Task<IActionResult> CreatePaymentAsync(CreatePaymentCommand requestModel)
 		{
-			return (await _mediator.Send(requestModel)).Match<IActionResult>(
+			return (await _mediator.Send(requestModel))
+				.Match<IActionResult>(
 					resultOk => Ok(resultOk),
-					error => BadRequest(error)
+					error => BadRequest(new ErrorModel(error.Message))
 				);
 		}
 
@@ -45,8 +51,8 @@ namespace Checkout.Gateway.WebApi.Controllers
 			return (await _mediator.Send(query))
 				.Match<IActionResult>(
 					resultOk => Ok(resultOk),
-					notFound => NotFound(notFound),
-					error => BadRequest(error)
+					notFound => NotFound(new ErrorModel(notFound.Message)),
+					error => BadRequest(new ErrorModel(error.Message))
 				);
 		}
 	}

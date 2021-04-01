@@ -1,8 +1,8 @@
 ﻿using Checkout.Gateway.Application.Payments.Commands;
-using Checkout.Gateway.Application.Payments.Errors;
 using OneOf;
 using System;
 using System.Threading.Tasks;
+using Checkout.Domain.Errors;
 
 namespace Checkout.Gateway.Application.Common.Interfaces
 {

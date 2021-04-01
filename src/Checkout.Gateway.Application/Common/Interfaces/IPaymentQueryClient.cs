@@ -1,6 +1,6 @@
 ﻿using OneOf;
 using System.Threading.Tasks;
-using Checkout.Gateway.Application.Payments.Errors;
+using Checkout.Domain.Errors;
 using Checkout.Gateway.Application.Payments.Queries;
 
 namespace Checkout.Gateway.Application.Common.Interfaces

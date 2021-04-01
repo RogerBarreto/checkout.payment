@@ -1,4 +1,4 @@
-﻿namespace Checkout.Gateway.Application.Payments.Errors
+﻿namespace Checkout.Domain.Errors
 {
     public struct PaymentNotFound
     {

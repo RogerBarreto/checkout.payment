@@ -1,5 +1,5 @@
-﻿using MediatR;
-using Checkout.Gateway.Application.Payments.Errors;
+﻿using Checkout.Domain.Errors;
+using MediatR;
 using OneOf;
 
 namespace Checkout.Gateway.Application.Payments.Commands

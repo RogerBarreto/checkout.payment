@@ -1,17 +1,13 @@
+using Checkout.Query.Application;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Reflection;
-using Checkout.Gateway.Application;
-using Checkout.Gateway.Infrastructure;
-using Checkout.Gateway.WebApi.Models;
+using Checkout.Query.Infrastructure;
 using Checkout.WebApi.Common.Extensions;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.OpenApi.Models;
 
-namespace Checkout.Gateway.WebApi
+namespace Checkout.Query.WebApi
 {
 	public class Startup
 	{
@@ -26,25 +22,10 @@ namespace Checkout.Gateway.WebApi
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddApplicationDependencies();
-			services.AddInfrastructureDependencies();
+			services.AddInfrastructureDependencies(Configuration);
+			services.AddSwaggerConfiguration();
 
-			services.AddApiVersioning(options =>
-			{
-				options.DefaultApiVersion = new ApiVersion(1, 0);
-				options.AssumeDefaultVersionWhenUnspecified = true;
-				options.ReportApiVersions = true;
-			});
-			services.AddVersionedApiExplorer(options => {
-				options.GroupNameFormat = "'v'VVV";
-				options.DefaultApiVersion = new ApiVersion(1, 0);
-				options.AssumeDefaultVersionWhenUnspecified = true;
-				options.SubstituteApiVersionInUrl = true;
-			});
-
-			services.AddJwtAuthNZ(Configuration.GetSection("HttpClientSettings:Identity").Get<AuthenticationSettings>());
-			services.AddSwaggerConfigurationWithAuthentication();
 			services.AddRouting(options => options.LowercaseUrls = true);
-
 			services.AddControllers();
 		}
 
@@ -69,7 +50,5 @@ namespace Checkout.Gateway.WebApi
 				endpoints.MapControllers();
 			});
 		}
-
-		
 	}
 }

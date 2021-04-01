@@ -1,5 +1,4 @@
-﻿using Checkout.Gateway.Application.Authentication.Errors;
-using Checkout.Gateway.Application.Common.Interfaces;
+﻿using Checkout.Gateway.Application.Common.Interfaces;
 using IdentityModel.Client;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -7,6 +6,7 @@ using OneOf;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Checkout.Domain.Errors;
 
 namespace Checkout.Gateway.Infrastructure.Authentication.Queries
 {

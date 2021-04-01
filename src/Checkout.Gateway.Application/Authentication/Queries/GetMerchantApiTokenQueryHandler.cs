@@ -1,9 +1,9 @@
-﻿using Checkout.Gateway.Application.Authentication.Errors;
-using Checkout.Gateway.Application.Common.Interfaces;
+﻿using Checkout.Gateway.Application.Common.Interfaces;
 using MediatR;
 using OneOf;
 using System.Threading;
 using System.Threading.Tasks;
+using Checkout.Domain.Errors;
 
 namespace Checkout.Gateway.Application.Authentication.Queries
 {

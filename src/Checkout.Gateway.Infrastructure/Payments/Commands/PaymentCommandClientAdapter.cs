@@ -1,6 +1,5 @@
 ﻿using Checkout.Gateway.Application.Common.Interfaces;
 using Checkout.Gateway.Application.Payments.Commands;
-using Checkout.Gateway.Application.Payments.Errors;
 using Checkout.Infrastructure.Common.HttpClients;
 using Checkout.Infrastructure.Common.HttpClients.Errors;
 using Microsoft.Extensions.Configuration;
@@ -11,6 +10,7 @@ using System.Collections.Specialized;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Checkout.Domain.Errors;
 
 namespace Checkout.Gateway.Infrastructure.Payments.Commands
 {

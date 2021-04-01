@@ -2,9 +2,9 @@
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Checkout.Gateway.Application.Extensions
+namespace Checkout.Gateway.Application
 {
-    public static class DependencyInjectionExtension
+    public static class DependencyInjection
     {
         public static void AddApplicationDependencies(this IServiceCollection services)
         {
