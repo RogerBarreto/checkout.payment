@@ -58,7 +58,9 @@ namespace Checkout.Gateway.WebApi
 
 			app.UseSwaggerConfiguration();
 
-			app.UseHttpsRedirection();
+			//app.UseHttpsRedirection();
+
+			app.UseAuthentication();
 
 			app.UseRouting();
 
