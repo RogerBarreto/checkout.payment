@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Checkout.Application.Common\Checkout.Application.Common.csproj" />
     <ProjectReference Include="..\Checkout.Gateway.Application\Checkout.Gateway.Application.csproj" />
     <ProjectReference Include="..\Checkout.Infrastructure.Common\Checkout.Infrastructure.Common.csproj" />
   </ItemGroup>
@@ -14,12 +15,6 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.13" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="3.1.13" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.13" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=3.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
-      <HintPath>C:\Program Files\dotnet\packs\Microsoft.AspNetCore.App.Ref\3.1.10\ref\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
 </Project>

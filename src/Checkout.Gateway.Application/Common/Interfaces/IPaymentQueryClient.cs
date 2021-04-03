@@ -1,5 +1,6 @@
 ﻿using OneOf;
 using System.Threading.Tasks;
+using Checkout.Application.Common.Payments.Queries;
 using Checkout.Domain.Errors;
 using Checkout.Gateway.Application.Payments.Queries;
 

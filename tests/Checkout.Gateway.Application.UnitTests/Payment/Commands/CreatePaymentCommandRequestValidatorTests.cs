@@ -1,11 +1,11 @@
 ﻿using Checkout.Domain.Common;
 using Checkout.Domain.Enums;
-using Checkout.Gateway.Application.Common.Interfaces;
-using Checkout.Gateway.Application.Payments.Commands;
 using FluentAssertions;
 using NSubstitute;
 using System;
 using System.Threading.Tasks;
+using Checkout.Application.Common.Interfaces;
+using Checkout.Application.Common.Payments.Commands;
 using Xunit;
 
 namespace Checkout.Gateway.Application.UnitTests.Payment.Commands

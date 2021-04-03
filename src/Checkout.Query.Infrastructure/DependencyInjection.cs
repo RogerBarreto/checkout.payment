@@ -1,4 +1,5 @@
-﻿using Checkout.Query.Application.Common.Interfaces;
+﻿using Checkout.Infrastructure.Common;
+using Checkout.Query.Application.Common.Interfaces;
 using Checkout.Query.Infrastructure.Payments;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +16,7 @@ namespace Checkout.Query.Infrastructure
 			});
 
 			services.AddScoped<IPaymentRepository, PaymentRepository>();
+			services.AddInfrastructureCommonDependencies();
 		}
 	}
 }

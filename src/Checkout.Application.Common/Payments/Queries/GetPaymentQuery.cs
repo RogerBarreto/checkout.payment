@@ -3,7 +3,7 @@ using System;
 using Checkout.Domain.Errors;
 using OneOf;
 
-namespace Checkout.Gateway.Application.Payments.Queries
+namespace Checkout.Application.Common.Payments.Queries
 {
 	public class GetPaymentQuery : IRequest<OneOf<GetPaymentQueryResponse, PaymentNotFound, PaymentError>>
 	{

@@ -7,14 +7,14 @@ using System.Collections.Specialized;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Checkout.Application.Common.Payments.Queries;
 using Checkout.Domain.Errors;
-using Checkout.Gateway.Application.Payments.Queries;
 using Checkout.Infrastructure.Common.HttpClients.Errors;
 using OneOf;
 
 namespace Checkout.Gateway.Infrastructure.Payments.Queries
 {
-	public class PaymentQueryClientAdapter : BaseHttpClientAdapter, IPaymentQueryClient
+	internal class PaymentQueryClientAdapter : BaseHttpClientAdapter, IPaymentQueryClient
 	{
 		public PaymentQueryClientAdapter(HttpClient httpClient, IConfiguration configuration, ILogger<PaymentQueryClientAdapter> logger) : 
             base(httpClient, logger)

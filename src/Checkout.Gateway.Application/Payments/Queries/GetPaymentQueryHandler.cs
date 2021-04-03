@@ -2,6 +2,7 @@
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
+using Checkout.Application.Common.Payments.Queries;
 using Checkout.Domain.Errors;
 using OneOf;
 

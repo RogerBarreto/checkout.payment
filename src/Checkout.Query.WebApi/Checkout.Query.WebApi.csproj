@@ -3,10 +3,12 @@
 	<PropertyGroup>
 		<TargetFramework>netcoreapp3.1</TargetFramework>
 		<UserSecretsId>acbc7bcd-d09b-4c4c-9fa9-7325e71e70fd</UserSecretsId>
+		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 		<DockerfileContext>..\..</DockerfileContext>
 	</PropertyGroup>
 	<ItemGroup>
+		<ProjectReference Include="..\Checkout.Application.Common\Checkout.Application.Common.csproj" />
 		<ProjectReference Include="..\Checkout.Query.Application\Checkout.Query.Application.csproj" />
 		<ProjectReference Include="..\Checkout.Query.Infrastructure\Checkout.Query.Infrastructure.csproj" />
 		<ProjectReference Include="..\Checkout.WebApi.Common\Checkout.WebApi.Common.csproj" />

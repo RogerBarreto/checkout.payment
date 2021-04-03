@@ -1,19 +1,14 @@
 ﻿using Checkout.Domain.Common;
-using Checkout.Gateway.Application.Common;
-using Checkout.Gateway.Application.Common.Interfaces;
 using FluentValidation;
 using System;
 using System.Linq;
+using Checkout.Application.Common.Interfaces;
 
-namespace Checkout.Gateway.Application.Payments.Commands
+namespace Checkout.Application.Common.Payments.Commands
 {
 	public class CreatePaymentCommandValidator : AbstractValidator<CreatePaymentCommand>
 	{
-        public CreatePaymentCommandValidator(ICreditCardValidator creditCardValidator) : this(new DateTimeProvider(), creditCardValidator)
-        {
-        }
-
-        public CreatePaymentCommandValidator(IDateTime currentDateTime, ICreditCardValidator creditCardValidator)
+       public CreatePaymentCommandValidator(IDateTime currentDateTime, ICreditCardValidator creditCardValidator)
 		{
 
 			RuleFor(o => o.MerchantId).GreaterThan(0);

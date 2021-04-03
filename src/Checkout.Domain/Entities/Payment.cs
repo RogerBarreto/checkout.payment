@@ -16,5 +16,12 @@ namespace Checkout.Domain.Entities
         public PaymentStatus Status { get; set; }
         public string StatusDescription { get; set; }
         public string BankPaymentId { get; set; }
-    }
+
+        public void UpdatePaymentStatus(PaymentStatus paymentStatus, string paymentStatusDescription, string bankPaymentId)
+        {
+	        BankPaymentId = bankPaymentId;
+	        StatusDescription = paymentStatusDescription;
+	        Status = paymentStatus;
+        }
+	}
 }

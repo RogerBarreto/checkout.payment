@@ -1,12 +1,7 @@
-﻿using Checkout.Domain.Errors;
-using MediatR;
-using OneOf;
-
-namespace Checkout.Gateway.Application.Payments.Commands
+﻿namespace Checkout.Command.WebApi.Models
 {
-	public class CreatePaymentCommand : IRequest<OneOf<CreatePaymentCommandResponse, PaymentError>>
-	{
-        public int MerchantId { get; set; }
+    public class CreatePaymentRequest
+    {
         public string CardNumber { get; set; }
         public int CardCVV { get; set; }
         public int CardExpiryYear { get; set; }

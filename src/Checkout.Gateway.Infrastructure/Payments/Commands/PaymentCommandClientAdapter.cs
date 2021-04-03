@@ -10,11 +10,12 @@ using System.Collections.Specialized;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Checkout.Application.Common.Payments.Commands;
 using Checkout.Domain.Errors;
 
 namespace Checkout.Gateway.Infrastructure.Payments.Commands
 {
-	public class PaymentCommandClientAdapter : BaseHttpClientAdapter, IPaymentCommandClient
+	internal class PaymentCommandClientAdapter : BaseHttpClientAdapter, IPaymentCommandClient
 	{
 		public PaymentCommandClientAdapter(HttpClient httpClient, IConfiguration configuration, ILogger<PaymentCommandClientAdapter> logger) : 
             base(httpClient, logger)

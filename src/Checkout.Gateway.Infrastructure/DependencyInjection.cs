@@ -2,6 +2,7 @@
 using Checkout.Gateway.Infrastructure.Authentication.Queries;
 using Checkout.Gateway.Infrastructure.Payments.Commands;
 using Checkout.Gateway.Infrastructure.Payments.Queries;
+using Checkout.Infrastructure.Common;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Checkout.Gateway.Infrastructure
@@ -13,6 +14,7 @@ namespace Checkout.Gateway.Infrastructure
 	        services.AddHttpClient<IPaymentCommandClient, PaymentCommandClientAdapter>();
 	        services.AddHttpClient<IPaymentQueryClient, PaymentQueryClientAdapter>();
 	        services.AddHttpClient<IAuthenticationClient, AuthenticationClientAdapter>();
+            services.AddInfrastructureCommonDependencies();
         }
     }
 }

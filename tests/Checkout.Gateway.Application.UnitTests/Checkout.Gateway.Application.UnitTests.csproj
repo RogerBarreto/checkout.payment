@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Checkout.Application.Common\Checkout.Application.Common.csproj" />
     <ProjectReference Include="..\..\src\Checkout.Gateway.Application\Checkout.Gateway.Application.csproj" />
   </ItemGroup>
 

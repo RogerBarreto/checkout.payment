@@ -10,7 +10,7 @@ using Checkout.Domain.Errors;
 
 namespace Checkout.Gateway.Infrastructure.Authentication.Queries
 {
-	public class AuthenticationClientAdapter : IAuthenticationClient
+	internal class AuthenticationClientAdapter : IAuthenticationClient
 	{
 		private readonly HttpClient _httpClient;
 		private readonly ILogger<AuthenticationClientAdapter> _logger;

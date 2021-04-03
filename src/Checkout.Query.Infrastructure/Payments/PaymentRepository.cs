@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Checkout.Application.Common.Payments.Queries;
 using Checkout.Domain.Entities;
 using Checkout.Domain.Errors;
 using Checkout.Query.Application.Common.Interfaces;
-using Checkout.Query.Application.Payments.Queries;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Logging;
 using OneOf;
 
 namespace Checkout.Query.Infrastructure.Payments
 {
-	public class PaymentRepository : IPaymentRepository
+	internal class PaymentRepository : IPaymentRepository
 	{
 		readonly IDistributedCache _paymentCache;
 

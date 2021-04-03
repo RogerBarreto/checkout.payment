@@ -2,6 +2,7 @@
 using OneOf;
 using System;
 using System.Threading.Tasks;
+using Checkout.Application.Common.Payments.Commands;
 using Checkout.Domain.Errors;
 
 namespace Checkout.Gateway.Application.Common.Interfaces

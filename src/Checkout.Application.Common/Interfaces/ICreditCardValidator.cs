@@ -1,4 +1,4 @@
-﻿namespace Checkout.Gateway.Application.Common.Interfaces
+﻿namespace Checkout.Application.Common.Interfaces
 {
 	public interface ICreditCardValidator
 	{

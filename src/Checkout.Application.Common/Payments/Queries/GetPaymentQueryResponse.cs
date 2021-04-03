@@ -1,7 +1,7 @@
 ﻿using Checkout.Domain.Entities;
 using System;
 
-namespace Checkout.Query.Application.Payments.Queries
+namespace Checkout.Application.Common.Payments.Queries
 {
 	public class GetPaymentQueryResponse
 	{
@@ -13,8 +13,38 @@ namespace Checkout.Query.Application.Payments.Queries
         public string CurrencyType { get; set; }
         public int PaymentStatusCode { get; set; }
         public string PaymentStatusDescription { get; set; }
+		public string MaskedCardNumber => GetMaskedCardNumber();
 
-        public static GetPaymentQueryResponse CreateFrom(Payment payment)
+        public string GetMaskedCardNumber(int showLastNthDigits = 4)
+		{
+			if (CardNumber is null)
+			{
+				return null;
+			}
+
+			var numberOfDigits = CardNumber.Length;
+
+			if (numberOfDigits <= showLastNthDigits)
+			{
+				return MaskAllDigits(numberOfDigits);
+			}
+
+			return MaskPartiallyDigits(showLastNthDigits, numberOfDigits);
+		}
+
+		private string MaskPartiallyDigits(int showLastNthDigits, int numberOfDigits)
+		{
+			var maskedNumber = new string('*', numberOfDigits - showLastNthDigits);
+
+			return $"{maskedNumber}{CardNumber.Substring(numberOfDigits - showLastNthDigits, showLastNthDigits)}";
+		}
+
+		private static string MaskAllDigits(int numberOfDigits)
+		{
+			return new string('*', numberOfDigits);
+		}
+
+		public static GetPaymentQueryResponse CreateFrom(Payment payment)
 		{
             return new GetPaymentQueryResponse
             {

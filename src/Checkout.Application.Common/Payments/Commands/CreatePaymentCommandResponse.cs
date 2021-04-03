@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Checkout.Gateway.Application.Payments.Commands
+namespace Checkout.Application.Common.Payments.Commands
 {
 	public class CreatePaymentCommandResponse
 	{

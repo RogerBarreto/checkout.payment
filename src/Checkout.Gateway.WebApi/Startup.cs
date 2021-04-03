@@ -45,7 +45,7 @@ namespace Checkout.Gateway.WebApi
 			services.AddSwaggerConfigurationWithAuthentication();
 			services.AddRouting(options => options.LowercaseUrls = true);
 
-			services.AddControllers();
+			services.AddControllersWithFluentValidation(Assembly.GetAssembly(typeof(Startup)));
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,8 +57,6 @@ namespace Checkout.Gateway.WebApi
 			}
 
 			app.UseSwaggerConfiguration();
-
-			//app.UseHttpsRedirection();
 
 			app.UseAuthentication();
 
