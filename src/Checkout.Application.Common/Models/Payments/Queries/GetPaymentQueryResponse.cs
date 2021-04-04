@@ -1,7 +1,7 @@
 ﻿using Checkout.Domain.Entities;
 using System;
 
-namespace Checkout.Application.Common.Payments.Queries
+namespace Checkout.Application.Common.Models.Payments.Queries
 {
 	public class GetPaymentQueryResponse
 	{

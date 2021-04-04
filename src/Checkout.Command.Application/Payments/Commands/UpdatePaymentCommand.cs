@@ -1,6 +1,6 @@
 ﻿using System;
+using Checkout.Application.Common.Models.Payments;
 using Checkout.Domain.Enums;
-using Checkout.Domain.Errors;
 using MediatR;
 using OneOf;
 

@@ -16,6 +16,7 @@ namespace Checkout.Command.Infrastructure
 			});
 
 			services.AddScoped<IPaymentRepository, PaymentRepository>();
+			services.AddScoped<IPaymentNotifier, PaymentNotifier>();
 			services.AddInfrastructureCommonDependencies();
 		}
 	}

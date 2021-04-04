@@ -3,7 +3,7 @@ using System.Net;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using Checkout.Application.Common.Payments.Queries;
+using Checkout.Application.Common.Models.Payments.Queries;
 using Checkout.WebApi.Common.Controllers;
 
 namespace Checkout.Query.WebApi.Controllers

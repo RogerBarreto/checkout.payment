@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Checkout.Application.Common.Payments.Queries
+namespace Checkout.Application.Common.Models.Payments.Queries
 {
     public class GetPaymentQueryValidator : AbstractValidator<GetPaymentQuery>
     {

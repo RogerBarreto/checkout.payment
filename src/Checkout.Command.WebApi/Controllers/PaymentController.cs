@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Threading.Tasks;
-using Checkout.Application.Common.Payments.Commands;
+using Checkout.Application.Common.Models.Payments.Commands;
 using Checkout.Command.Application.Payments.Commands;
 using Checkout.Command.WebApi.Models;
 using Checkout.Domain.Enums;

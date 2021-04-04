@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Text.Json;
 using System.Threading.Tasks;
-using Checkout.Application.Common.Payments.Commands;
+using Checkout.Application.Common.Models.Payments;
+using Checkout.Application.Common.Models.Payments.Commands;
 using Checkout.Command.Application.Common.Interfaces;
 using Checkout.Command.Application.Payments.Commands;
 using Checkout.Domain.Entities;
 using Checkout.Domain.Enums;
-using Checkout.Domain.Errors;
 using Checkout.Domain.ValueObjects;
+using Checkout.Infrastructure.Common.Extensions;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Logging;
 using OneOf;
@@ -92,6 +92,22 @@ namespace Checkout.Command.Infrastructure.Payments
 			{
 				_logger.LogError($"Failed to update a payment in the Cache [paymentId={command.PaymentId}, updateData={JsonSerializer.Serialize(command)}, message={ex.Message}]");
 				return new PaymentError("Failed to update a payment");
+			}
+		}
+
+		public async Task<OneOf<PaymentDeleted, PaymentNotFound, PaymentError>> DeletePaymentAsync(Guid paymentId)
+		{
+			try
+			{
+				await _paymentCache.RemoveAsync($"Payment_{paymentId}");
+
+				_logger.LogInformation($"Success to delete payment from Cache [paymentId={paymentId}]");
+				return new PaymentDeleted();
+			}
+			catch (Exception ex)
+			{
+				_logger.LogError($"Failed to delete a payment from Cache [paymentId={paymentId}, message={ex.Message}]");
+				return new PaymentError("Failed to delete a payment from Cache");
 			}
 		}
 	}

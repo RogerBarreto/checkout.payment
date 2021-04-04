@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using Checkout.Application.Common.Payments.Queries;
+using Checkout.Application.Common.Models.Payments.Queries;
 using Checkout.Query.Application.Payments.Queries;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;

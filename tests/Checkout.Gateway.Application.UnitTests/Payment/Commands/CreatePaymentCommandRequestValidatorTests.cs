@@ -5,7 +5,7 @@ using NSubstitute;
 using System;
 using System.Threading.Tasks;
 using Checkout.Application.Common.Interfaces;
-using Checkout.Application.Common.Payments.Commands;
+using Checkout.Application.Common.Models.Payments.Commands;
 using Xunit;
 
 namespace Checkout.Gateway.Application.UnitTests.Payment.Commands

@@ -6,7 +6,7 @@ using OneOf;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Checkout.Domain.Errors;
+using Checkout.Application.Common.Models.Authentication;
 
 namespace Checkout.Gateway.Infrastructure.Authentication.Queries
 {

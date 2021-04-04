@@ -1,6 +1,8 @@
 using System.Reflection;
 using Checkout.Command.Application;
 using Checkout.Command.Infrastructure;
+using Checkout.Command.WebApi.Configuration;
+using Checkout.Infrastructure.Common.Configuration;
 using Checkout.WebApi.Common.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -22,6 +24,7 @@ namespace Checkout.Command.WebApi
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
+			services.AddSingleton<ISnsSettings>(o => Configuration.GetSection("SnsSettings").Get<SnsSettings>());
 			services.AddApplicationDependencies();
 			services.AddInfrastructureDependencies(Configuration);
 			services.AddSwaggerConfiguration();

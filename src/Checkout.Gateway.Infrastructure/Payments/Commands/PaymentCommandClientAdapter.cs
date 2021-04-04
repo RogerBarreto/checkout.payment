@@ -10,8 +10,8 @@ using System.Collections.Specialized;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Checkout.Application.Common.Payments.Commands;
-using Checkout.Domain.Errors;
+using Checkout.Application.Common.Models.Payments;
+using Checkout.Application.Common.Models.Payments.Commands;
 
 namespace Checkout.Gateway.Infrastructure.Payments.Commands
 {

@@ -2,8 +2,8 @@
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
-using Checkout.Application.Common.Payments.Commands;
-using Checkout.Domain.Errors;
+using Checkout.Application.Common.Models.Payments;
+using Checkout.Application.Common.Models.Payments.Commands;
 using OneOf;
 
 namespace Checkout.Gateway.Application.Payments.Commands

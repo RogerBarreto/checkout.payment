@@ -1,4 +1,4 @@
-﻿namespace Checkout.Domain.Errors
+﻿namespace Checkout.Application.Common.Models.Authentication
 {
 	public struct AuthenticationError
 	{

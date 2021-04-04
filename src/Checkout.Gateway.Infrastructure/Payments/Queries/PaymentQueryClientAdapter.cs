@@ -7,8 +7,8 @@ using System.Collections.Specialized;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Checkout.Application.Common.Payments.Queries;
-using Checkout.Domain.Errors;
+using Checkout.Application.Common.Models.Payments;
+using Checkout.Application.Common.Models.Payments.Queries;
 using Checkout.Infrastructure.Common.HttpClients.Errors;
 using OneOf;
 

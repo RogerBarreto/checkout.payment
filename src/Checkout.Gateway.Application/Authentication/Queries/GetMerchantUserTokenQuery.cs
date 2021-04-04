@@ -1,4 +1,4 @@
-﻿using Checkout.Domain.Errors;
+﻿using Checkout.Application.Common.Models.Authentication;
 using MediatR;
 using OneOf;
 

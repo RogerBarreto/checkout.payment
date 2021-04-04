@@ -1,6 +1,6 @@
 ﻿using OneOf;
 using System.Threading.Tasks;
-using Checkout.Domain.Errors;
+using Checkout.Application.Common.Models.Authentication;
 
 namespace Checkout.Gateway.Application.Common.Interfaces
 {

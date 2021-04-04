@@ -2,7 +2,7 @@
 using OneOf;
 using System.Threading;
 using System.Threading.Tasks;
-using Checkout.Domain.Errors;
+using Checkout.Application.Common.Models.Authentication;
 using Checkout.Gateway.Application.Common.Interfaces;
 
 namespace Checkout.Gateway.Application.Authentication.Queries

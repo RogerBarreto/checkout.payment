@@ -4,7 +4,7 @@ using System;
 using System.Linq;
 using Checkout.Application.Common.Interfaces;
 
-namespace Checkout.Application.Common.Payments.Commands
+namespace Checkout.Application.Common.Models.Payments.Commands
 {
 	public class CreatePaymentCommandValidator : AbstractValidator<CreatePaymentCommand>
 	{

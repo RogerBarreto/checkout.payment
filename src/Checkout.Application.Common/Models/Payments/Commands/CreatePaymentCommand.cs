@@ -1,8 +1,7 @@
-﻿using Checkout.Domain.Errors;
-using MediatR;
+﻿using MediatR;
 using OneOf;
 
-namespace Checkout.Application.Common.Payments.Commands
+namespace Checkout.Application.Common.Models.Payments.Commands
 {
 	public class CreatePaymentCommand : IRequest<OneOf<CreatePaymentCommandResponse, PaymentError>>
 	{

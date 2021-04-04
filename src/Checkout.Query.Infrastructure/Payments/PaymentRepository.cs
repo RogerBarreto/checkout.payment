@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Text.Json;
 using System.Threading.Tasks;
-using Checkout.Application.Common.Payments.Queries;
+using Checkout.Application.Common.Models.Payments;
+using Checkout.Application.Common.Models.Payments.Queries;
 using Checkout.Domain.Entities;
-using Checkout.Domain.Errors;
+using Checkout.Infrastructure.Common.Extensions;
 using Checkout.Query.Application.Common.Interfaces;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Logging;
@@ -13,7 +13,7 @@ namespace Checkout.Query.Infrastructure.Payments
 {
 	internal class PaymentRepository : IPaymentRepository
 	{
-		readonly IDistributedCache _paymentCache;
+		private readonly IDistributedCache _paymentCache;
 
 		private readonly ILogger<PaymentRepository> _logger;
 
@@ -29,18 +29,21 @@ namespace Checkout.Query.Infrastructure.Payments
 			{
 				var paymentData = await _paymentCache.GetStringAsync($"Payment_{query.PaymentId}");
 
-				if (paymentData != null)
-				{
-					var payment = JsonSerializer.Deserialize<Payment>(paymentData);
-
-					_logger.LogInformation($"Success getting payment from cache [paymentId={payment.Id}]");
-					return payment;
-				}
-				else
+				if (paymentData == null)
 				{
 					_logger.LogInformation($"Payment not found [paymentId={query.PaymentId}]");
 					return new PaymentNotFound("Payment not found");
 				}
+
+				var payment = JsonSerializer.Deserialize<Payment>(paymentData);
+				if (payment.MerchantId != query.MerchantId)
+				{
+					_logger.LogWarning($"Payment not found - Exists in cache for different merchant id [paymentId={payment.Id}, merchantId={query.MerchantId}, cachedMerchantId={payment.MerchantId}]");
+					return new PaymentNotFound("Payment not found");
+				}
+
+				_logger.LogInformation($"Success getting payment from cache [paymentId={payment.Id}]");
+				return payment;
 			}
 			catch (Exception ex)
 			{
